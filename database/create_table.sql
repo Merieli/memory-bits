@@ -1,0 +1,11 @@
+-- CREATE DATABASE IF NOT EXISTS `marvel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS memory_game;
+GO
+USE memory_game;
+GO
+CREATE TABLE users(
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL
+
+    -- CONSTRAINT username_unique UNIQUE (username)
+);
