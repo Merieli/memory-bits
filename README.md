@@ -41,6 +41,20 @@
 
 ## 🗂 How to Use
 
+Run MySQL database with Docker
+```bash
+# Executar container docker
+docker compose up -d
+
+# Executar o container com o bash
+docker exec -it memorygame-db bash
+
+# Acessar o terminal do MySQL
+mysql -uroot -p
+# Depois digitar a senha e usar o Banco de Dados
+```
+
+
 Run Locally
 ```bash
 # Remover comandos de package quando projeto estiver criado
