@@ -19,22 +19,23 @@ CREATE TABLE levels(
 CREATE TABLE groups_of_cards(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
-    fk_groups_of_cards__levels__id INT,
+    fk_groups_of_cards__levels__id INT NOT NULL,
 
     CONSTRAINT name_unique__groups_of_cards UNIQUE (name),
-    CONSTRAINT fk_required_level FOREIGN KEY (fk_groups_of_cards__levels__id) REFERENCES `levels` (id)
+    CONSTRAINT fk_required_level 
+        FOREIGN KEY (fk_groups_of_cards__levels__id) REFERENCES `levels` (id)
 );
 
 CREATE TABLE cards(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     image_url TEXT NOT NULL,
-    fk_cards__groups_of_cards__id INT,
+    fk_cards__groups_of_cards__id INT NOT NULL,
 
-    CONSTRAINT fk_groups_of_cards__cards FOREIGN KEY (fk_cards__groups_of_cards__id) REFERENCES `groups_of_cards` (id)
+    CONSTRAINT fk_groups_of_cards__cards 
+        FOREIGN KEY (fk_cards__groups_of_cards__id) REFERENCES `groups_of_cards` (id)
 );
 
--- match entre template string porque a palavra é reservada no sql e é preciso escapar
-CREATE TABLE `matchs`( 
+CREATE TABLE matchs( 
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     attempts SMALLINT,
     score INT(11) NOT NULL,
@@ -43,7 +44,10 @@ CREATE TABLE `matchs`(
     fk_matchs__levels__id INT,
     fk_matchs__groups_of_cards__id INT,
     
-    CONSTRAINT fk_user__matchs FOREIGN KEY (fk_matchs__users__id) REFERENCES `users` (id),
-    CONSTRAINT fk_level__matchs FOREIGN KEY (fk_matchs__levels__id) REFERENCES `levels` (id),
-    CONSTRAINT fk_groups_of_cards__matchs FOREIGN KEY (fk_matchs__groups_of_cards__id) REFERENCES `groups_of_cards` (id)
+    CONSTRAINT fk_user__matchs 
+        FOREIGN KEY (fk_matchs__users__id) REFERENCES `users` (id),
+    CONSTRAINT fk_level__matchs 
+        FOREIGN KEY (fk_matchs__levels__id) REFERENCES `levels` (id),
+    CONSTRAINT fk_groups_of_cards__matchs 
+        FOREIGN KEY (fk_matchs__groups_of_cards__id) REFERENCES `groups_of_cards` (id)
 );
