@@ -3,6 +3,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
     const loggedIn = true;
 
+    // TODO: criar a lógica para verificar se o usuário está logado
+
     if (to.name !== 'login' && !loggedIn) {
         console.log('User not logged in');
         return navigateTo('/login');

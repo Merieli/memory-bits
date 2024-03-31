@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cards {
+  id                            Int             @id @default(autoincrement())
+  image_url                     String          @db.Text
+  fk_cards__groups_of_cards__id Int
+  groups_of_cards               groups_of_cards @relation(fields: [fk_cards__groups_of_cards__id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_groups_of_cards__cards")
+
+  @@index([fk_cards__groups_of_cards__id], map: "fk_groups_of_cards__cards")
+}
+
+model groups_of_cards {
+  id                             Int      @id @default(autoincrement())
+  name                           String   @unique(map: "name_unique__groups_of_cards") @db.VarChar(25)
+  fk_groups_of_cards__levels__id Int
+  cards                          cards[]
+  levels                         levels   @relation(fields: [fk_groups_of_cards__levels__id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_required_level")
+  matchs                         matchs[]
+
+  @@index([fk_groups_of_cards__levels__id], map: "fk_required_level")
+}
+
+model levels {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique(map: "name_unique__levels") @db.VarChar(10)
+  groups_of_cards groups_of_cards[]
+  matchs          matchs[]
+}
+
+model matchs {
+  id                             Int              @id @default(autoincrement())
+  attempts                       Int?             @db.SmallInt
+  score                          Int
+  time                           Float?           @db.Float
+  fk_matchs__users__id           Int?
+  fk_matchs__levels__id          Int?
+  fk_matchs__groups_of_cards__id Int?
+  groups_of_cards                groups_of_cards? @relation(fields: [fk_matchs__groups_of_cards__id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_groups_of_cards__matchs")
+  levels                         levels?          @relation(fields: [fk_matchs__levels__id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_level__matchs")
+  users                          users?           @relation(fields: [fk_matchs__users__id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user__matchs")
+
+  @@index([fk_matchs__groups_of_cards__id], map: "fk_groups_of_cards__matchs")
+  @@index([fk_matchs__levels__id], map: "fk_level__matchs")
+  @@index([fk_matchs__users__id], map: "fk_user__matchs")
+}
+
+model users {
+  id       Int      @id @default(autoincrement())
+  username String   @unique(map: "username_unique__users") @db.VarChar(50)
+  matchs   matchs[]
+}

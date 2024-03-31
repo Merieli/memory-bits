@@ -10,6 +10,10 @@ services:
         env_file:
             - .env
         ports:
-            - "3308:3308"
+            - "42333:3306"
         volumes:
             - ./database:/docker-entrypoint-initdb.d/
+        healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10

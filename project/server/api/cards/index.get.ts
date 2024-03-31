@@ -1,7 +1,9 @@
-export default defineEventHandler(() => {
-    // TODO: obter dados de cartas do banco de dados
+import { findAllCards } from '~/server/controllers/cards';
+
+export default defineEventHandler(async () => {
+    const cards = await findAllCards();
 
     return {
-        cards: [],
+        data: cards,
     }
 })
