@@ -1,7 +1,7 @@
-import withNuxt from "./.nuxt/eslint.config.mjs";
+import antfu from '@antfu/eslint-config'
 
-export default withNuxt({
-  rules: {
-    "vue/order-in-components": "error",
-  },
-});
+export default antfu({
+    stylistic: {
+        indent: 4,
+    },
+})
