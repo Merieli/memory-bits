@@ -1,19 +1,20 @@
-import { z } from 'zod';
+import { pageCardParams } from '~/schema/pageCards.schema';
 
 export default () => {
+    
     const route = useRoute();
+    const router = useRouter();
 
-    const schema = z.object({
-        q: z.string().optional(),
-        page: z.coerce.number().optional().default(1),
-    });
-
-    const validData = computed(() => {
+    const validData: ComputedRef = computed(() => {
         try {
-          return schema.parse(route.query);
+            pageCardParams.parse(route.params);
         } catch (e) {
-          alert('invalid query string!');
-          return null;
+            router.push({ name: 'NotFound' });
+            return null;
         }
     });
+
+    return {
+        validData,
+    }
 }
