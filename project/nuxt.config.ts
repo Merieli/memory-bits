@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     alias: {
-        '@': '/<srcDir>',
-        '~~': '/<rootDir>',
+        "@": "/<srcDir>",
+        "~~": "/<rootDir>",
+        "@@": "/<rootDir>",
         'css': '/<srcDir>/assets/css',
     },
     app: {

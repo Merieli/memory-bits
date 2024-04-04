@@ -1,30 +1,15 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
-import { prisma } from './client';
+import { prisma } from '../client';
 
-export const findAllCards = async () => {
-    const cards = await prisma.cards.findMany();
-
-    return {
-        data: cards
-    };
-}
-
-export const findCardById = async (id: number) => {
-    const card = await prisma.cards.findUnique({
-        where: {
-            id,
-        }
-    });
-
-    return card;
-}
-
-export const findCardsByGroupId = async (event: H3Event<EventHandlerRequest>) => {
+/**
+ * To find cards by group ID in database
+ */
+export const findByGroupId = async (event: H3Event<EventHandlerRequest>) => {
     const cardId = event.context.params?.id;
     if(!cardId || cardId === '0') {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No ID provided. /cards/[id]'
+            statusMessage: 'No ID provided. /cards/group/[id]'
         })
     }
     
