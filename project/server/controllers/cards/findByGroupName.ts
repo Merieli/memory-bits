@@ -1,7 +1,6 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
 import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
-import { findAll } from './findAll';
 
 /**
  * Find cards by query string `group_name` in database
@@ -9,11 +8,7 @@ import { findAll } from './findAll';
 export const findByGroupName = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
     const query = getQuery(event);
     const group_name = query.group_name?.toString();
-
-    if (!group_name) {
-        return await findAll(event);
-    }
-
+    
     const group = await prisma.groups_of_cards.findUnique({
         where: {
             name: group_name,
@@ -23,8 +18,8 @@ export const findByGroupName = async (event: H3Event<EventHandlerRequest>): Prom
 
     if (!idGroup || idGroup === 0) {
         throw createError({
-            statusCode: 400,
-            statusMessage: 'No ID provided. /cards/group/[id]'
+            statusCode: 200,
+            statusMessage: `No find ID for this group name ${group_name}`
         })
     }
 

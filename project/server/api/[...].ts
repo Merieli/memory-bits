@@ -4,13 +4,16 @@ import * as levels from "~/server/controllers/levels";
 
 const router = createRouter();
 
-router.get('/cards', defineEventHandler(cards.findAll));
+router.get('/cards', defineEventHandler(cards.handleGet));
 router.get('/cards/:id', defineEventHandler(cards.findById));
-router.get('/cards/group/:id', defineEventHandler(cards.findByGroupId));
-router.get('/cards/group_name/:group_name', defineEventHandler(cards.findByGroupName));
+
+router.post('/cards', defineEventHandler(cards.create));
+router.delete('/cards/:id', defineEventHandler(cards.deleteById));
+
 
 router.get('/group_of_cards', defineEventHandler(group_of_cards.findAll));
 router.get('/group_of_cards/:name', defineEventHandler(group_of_cards.findByName));
+
 
 router.get('/levels', defineEventHandler(levels.findAllLevels));
 
