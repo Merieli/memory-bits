@@ -21,6 +21,12 @@ export const findByGroupId = async (event: H3Event<EventHandlerRequest>) => {
             "fk_cards__groups_of_cards__id": +groupId,
         }
     });
+    if (cards.length === 0) {
+        return {
+            data: [],
+        }
+    }
+
     const data: CardRequest[] = cards.map((card) => {
         return {
             id: card.id,
@@ -28,12 +34,6 @@ export const findByGroupId = async (event: H3Event<EventHandlerRequest>) => {
             group_of_cards_id: card.fk_cards__groups_of_cards__id,
         }
     });
-
-    if (data.length === 0) {
-        return {
-            data: [],
-        }
-    }
 
     return {
         data,

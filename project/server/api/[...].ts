@@ -1,6 +1,7 @@
 import * as cards from "~/server/controllers/cards";
 import * as group_of_cards from "~/server/controllers/group_of_cards";
 import * as levels from "~/server/controllers/levels";
+import * as matchs from "~/server/controllers/matchs";
 
 const router = createRouter();
 
@@ -16,5 +17,7 @@ router.get('/group_of_cards/:name', defineEventHandler(group_of_cards.findByName
 
 
 router.get('/levels', defineEventHandler(levels.findAllLevels));
+
+router.get('/matchs', defineEventHandler(matchs.findAll));
 
 export default useBase('/api/v1', router.handler)
