@@ -20,8 +20,6 @@ export const findByName = async (event: H3Event<EventHandlerRequest>) => {
         }
     });
 
-
-    
     return {
         data: groupOfCardByName,
     };

@@ -12,7 +12,7 @@ export const findByGroupId = async (event: H3Event<EventHandlerRequest>) => {
     if(!groupId || groupId === '0') {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No ID provided. /cards/group/[id]'
+            statusMessage: 'No ID provided. /cards?[group_id]'
         })
     }
     

@@ -3,21 +3,22 @@ import * as group_of_cards from "~/server/controllers/group_of_cards";
 import * as levels from "~/server/controllers/levels";
 import * as matchs from "~/server/controllers/matchs";
 
-const router = createRouter();
+const routerV1 = createRouter();
 
-router.get('/cards', defineEventHandler(cards.handleGet));
-router.get('/cards/:id', defineEventHandler(cards.findById));
-
-router.post('/cards', defineEventHandler(cards.create));
-router.delete('/cards/:id', defineEventHandler(cards.deleteById));
-
-
-router.get('/group_of_cards', defineEventHandler(group_of_cards.findAll));
-router.get('/group_of_cards/:name', defineEventHandler(group_of_cards.findByName));
+routerV1.get('/cards', defineEventHandler(cards.handleGet));
+routerV1.get('/cards/:id', defineEventHandler(cards.findById));
+routerV1.post('/cards', defineEventHandler(cards.create));
+routerV1.delete('/cards/:id', defineEventHandler(cards.deleteById));
 
 
-router.get('/levels', defineEventHandler(levels.findAllLevels));
+routerV1.get('/group_of_cards', defineEventHandler(group_of_cards.findAll));
+routerV1.get('/group_of_cards/:name', defineEventHandler(group_of_cards.findByName));
 
-router.get('/matchs', defineEventHandler(matchs.findAll));
 
-export default useBase('/api/v1', router.handler)
+routerV1.get('/levels', defineEventHandler(levels.findAllLevels));
+
+
+routerV1.get('/matchs', defineEventHandler(matchs.findAll));
+routerV1.post('/matchs/:id', defineEventHandler(matchs.create));
+
+export default useBase('/api/v1', routerV1.handler)
