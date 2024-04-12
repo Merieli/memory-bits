@@ -22,7 +22,18 @@ export abstract class AbstractDto<Schema extends ZodType> {
             this.data = this.rules().parse(data);   
         } catch (error) {
             if (error instanceof ZodError) {
-                throw error;
+                const issues = error.issues.map((issue) => {
+                    const pointer = '#/' + issue.path.join('/');
+
+                    return {
+                        details: issue.message,
+                        pointer,
+                    }
+                })
+                const newError: any = error;
+                newError.issues = issues;
+
+                throw newError;
             }
 
             throw new Error('Internal error');            
