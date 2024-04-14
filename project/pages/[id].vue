@@ -10,7 +10,7 @@ const { validData } = useValidateQueryURL();
 </script>
     
 <template>
-    <h2>jhjhjh</h2>
+    <h2>Titulo do jogo</h2>
     {{ validData }}
 
 </template>
