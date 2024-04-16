@@ -1,7 +1,7 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
 import { CreateMatchRequestDTO } from '~/dtos/create-match-request-dto/createMatchRequestDto';
-import { CreateMatchBodyPost } from '~/interfaces/api/CreateMatchBodyPost';
-import { ResponseApi } from '~/interfaces/ResponseApi.type';
+import { type CreateMatchBodyPost } from '~/interfaces/api/CreateMatchBodyPost';
+import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
 
 export const create = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {

@@ -7,6 +7,7 @@
 <style lang='postcss' scoped>
 .footer{
     @apply fixed bottom-0 left-0 
-        w-full text-center;
+        w-full text-center
+        my-4;
 }
 </style>

@@ -1,5 +1,5 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
-import { ResponseApi } from '~/interfaces/ResponseApi.type';
+import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
 
 /**

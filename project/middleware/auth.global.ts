@@ -9,4 +9,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
         console.log('User not logged in');
         return navigateTo('/login');
     }
+
+    return ;
 });
