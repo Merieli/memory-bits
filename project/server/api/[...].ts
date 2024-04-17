@@ -19,6 +19,6 @@ routerV1.get('/levels', defineEventHandler(levels.findAllLevels));
 
 
 routerV1.get('/matchs', defineEventHandler(matchs.findAll));
-routerV1.post('/matchs/:id', defineEventHandler(matchs.create));
+routerV1.post('/matchs', defineEventHandler(matchs.create));
 
 export default useBase('/api/v1', routerV1.handler)
