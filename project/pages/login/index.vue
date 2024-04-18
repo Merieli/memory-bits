@@ -22,11 +22,15 @@ try {
         {{ texts.projectTitle }}
     </h1>
     <div class="flex flex-col justify-center min-h-36">
-        <label>
-            Username: 
-            <input type="text" name="username" />
-        </label>
-        
+        <div class="flex flex-wrap items-center gap-[15px] px-5">
+            <Label class="text-[15px] font-semibold leading-[35px]" for="firstName">Username: </Label>
+            <input
+                id="firstName"
+                class="bg-blackA5 shadow-blackA9 inline-flex h-[35px] w-[200px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA9"
+                name="username" 
+                type="text"
+            >
+        </div>
 
         <label>
             Level: 
