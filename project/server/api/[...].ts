@@ -18,7 +18,9 @@ routerV1.get('/group_of_cards/:name', defineEventHandler(group_of_cards.findByNa
 routerV1.get('/levels', defineEventHandler(levels.findAllLevels));
 
 
-routerV1.get('/matchs', defineEventHandler(matchs.findAll));
+routerV1.get('/matchs', defineEventHandler(matchs.handleGet));
+routerV1.get('/matchs/:id', defineEventHandler(matchs.findById));
 routerV1.post('/matchs', defineEventHandler(matchs.create));
+routerV1.delete('/matchs/:id', defineEventHandler(matchs.deleteById));
 
 export default useBase('/api/v1', routerV1.handler)

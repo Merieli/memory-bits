@@ -1,7 +1,11 @@
 import { create } from "./create";
+import { deleteById } from "./deleteById";
 import { findAll } from "./findAll";
+import { findById } from "./findById";
 import { findByUserId } from "./findByUserId";
+import { handleGet } from "./handleGet";
 
 export {
-    create, findAll, findByUserId
+    create, deleteById, findAll, findById, findByUserId, handleGet
 };
+
