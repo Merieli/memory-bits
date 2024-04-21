@@ -28,7 +28,7 @@ try {
 </script>
 
 <template>
-    <h1 class="text-3xl font-bold underline">
+    <h1 class="text-3xl font-bold underline mb-8">
         {{ texts.projectTitle }}
     </h1>
     <div class="flex flex-col justify-center min-h-36">
@@ -41,12 +41,12 @@ try {
                 type="text"
             >
         </Label>
-        <Label class="text-[15px] font-semibold leading-[35px] flex flex-wrap items-center gap-[15px] px-5" for="levels">
+        <Label class="text-[15px] font-semibold leading-[35px] flex flex-wrap items-center gap-[15px] px-5 mb-8" for="levels">
             Level: 
             <SelectRoot v-model="level">
                 <SelectTrigger
-                class="inline-flex min-w-[160px] items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none flex-1"
-                aria-label="Customise options"
+                    class="inline-flex min-w-[160px] items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none flex-1"
+                    aria-label="Customise options"
                 >
                     <SelectValue placeholder="Select a level..." />
                     <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5" />
@@ -84,7 +84,11 @@ try {
                 </SelectPortal>
             </SelectRoot>
         </Label>
-
+        <button
+          class="inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none font-medium h-[35px] bg-green4 text-green11 hover:bg-green5 focus:shadow-[0_0_0_2px] focus:shadow-green7 outline-none cursor-default"
+        >
+          Play
+        </button>
     </div>
 </template>
 
