@@ -23,6 +23,7 @@ routerV1.get('/matchs', defineEventHandler(matchs.handleGet));
 routerV1.get('/matchs/:id', defineEventHandler(matchs.findById));
 routerV1.post('/matchs', defineEventHandler(matchs.create));
 routerV1.delete('/matchs/:id', defineEventHandler(matchs.deleteById));
+routerV1.put('/matchs/:id', defineEventHandler(matchs.update));
 
 
 routerV1.get('/users', defineEventHandler(users.handleGet));

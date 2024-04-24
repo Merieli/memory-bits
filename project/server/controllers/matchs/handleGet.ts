@@ -1,5 +1,5 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
-import { findAll } from '../cards';
+import { findAll } from './findAll';
 import { findByUserId } from './findByUserId';
 
 export interface QueryGetMatchs {

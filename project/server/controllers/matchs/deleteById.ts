@@ -11,11 +11,11 @@ export const deleteById = async (event: H3Event<EventHandlerRequest>): Promise<R
     if(!id || id === '0') {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No ID provided. /matchp/[id]'
+            statusMessage: 'No ID provided. /matchs/[id]'
         })
     }
 
-    await prisma.matchs.delete({
+    const response = await prisma.matchs.delete({
         where: {
             id: +id,
         }
@@ -23,7 +23,13 @@ export const deleteById = async (event: H3Event<EventHandlerRequest>): Promise<R
 
     return {
         data: {
-            id: +id,
+            id: response.id,
+            attempts: response.attempts,
+            score: response.score,
+            time: response.time,
+            user_id: response.fk_matchs__users__id,
+            level_id: response.fk_matchs__levels__id,
+            group_of_cards_id: response.fk_matchs__groups_of_cards__id
         }
     };
 }

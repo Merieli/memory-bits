@@ -6,10 +6,18 @@ import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
 
 /**
- * Create a match in the database 
+ * Update a match in the database 
  */
-export const create = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
-    try {
+export const update = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
+    try {        
+        const id = event.context.params?.id;
+    
+        if (!id) {
+            throw createError({
+                statusCode: 400,
+                statusMessage: 'No ID provided. /matchs/:id'
+            })
+        }
         
         const body: CreateMatchBodyPost = await readBody(event);
         const transformedBody = {
@@ -20,22 +28,27 @@ export const create = async (event: H3Event<EventHandlerRequest>): Promise<Respo
             fk_matchs__levels__id: body.level_id,
             fk_matchs__groups_of_cards__id: body.group_of_cards_id
         }
-        const dataToSave = new CreateMatchRequestDTO(transformedBody);
+        const data = new CreateMatchRequestDTO(transformedBody);
     
-        const response = await prisma.matchs.create({
-            data: dataToSave.getAll(),
+        
+        const response = await prisma.matchs.update({
+            where: {
+                id: +id,
+            },
+            data: data.getAll(),
+        }).then((data) => {
+            return  {
+                attempts: data.attempts,
+                score: data.score,
+                time: data.time,
+                user_id: data.fk_matchs__users__id,
+                level_id: data.fk_matchs__levels__id,
+                group_of_cards_id: data.fk_matchs__groups_of_cards__id
+            }
         });
     
         return {
-            data: {
-                id: response.id,
-                attempts: response.attempts,
-                score: response.score,
-                time: response.time,
-                user_id: response.fk_matchs__users__id,
-                level_id: response.fk_matchs__levels__id,
-                group_of_cards_id: response.fk_matchs__groups_of_cards__id
-            }
+            data: response
         };
     } catch (error) {
         if (error instanceof ZodError) {
@@ -55,4 +68,5 @@ export const create = async (event: H3Event<EventHandlerRequest>): Promise<Respo
 
         throw error;
     }
+    
 }
