@@ -8,6 +8,9 @@ export interface QueryGetCards {
     group_name?: string,
 }
 
+/**
+ * Handle the get request for cards
+ */
 export const handleGet = async (event: H3Event<EventHandlerRequest>) => {
     const listQueries = ['group_id', 'group_name']
     const query: QueryGetCards = getQuery(event);

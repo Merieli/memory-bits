@@ -3,7 +3,7 @@ import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
 
 /**
- * To get all cards from database
+ * To delete a card by id in the database
  */
 export const deleteById = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
     const id = event.context.params?.id;

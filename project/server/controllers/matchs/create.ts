@@ -6,10 +6,7 @@ import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
 
 /**
- * Create a match in the database
- * 
- * @param event 
- * @returns 
+ * Create a match in the database 
  */
 export const create = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
     const body: CreateMatchBodyPost = await readBody(event);

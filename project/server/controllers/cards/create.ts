@@ -4,6 +4,9 @@ import { CreateCardRequestDTO } from '~/dtos/create-card-request-dto/createCardR
 import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
 
+/**
+ * Create a new card in the database
+ */
 export const create = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
     try {
         const body = await readBody(event);
