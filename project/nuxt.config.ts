@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     },
     modules: [
         '@nuxt/eslint', 
+        'nuxt-icon',
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
         'radix-vue/nuxt',

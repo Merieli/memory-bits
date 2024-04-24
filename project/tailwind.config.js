@@ -1,5 +1,3 @@
-const { blackA, green, grass, mauve } = require('@radix-ui/colors')
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
@@ -18,12 +16,30 @@ module.exports = {
     },
     theme: {
         extend: {
-          colors: {
-            ...blackA,
-            ...green,
-            ...grass,
-            ...mauve,
-          },
+            keyframes: {
+                slideDownAndFade: {
+                    from: { opacity: 0, transform: 'translateY(-2px)' },
+                    to: { opacity: 1, transform: 'translateY(0)' },
+                },
+                slideLeftAndFade: {
+                    from: { opacity: 0, transform: 'translateX(2px)' },
+                    to: { opacity: 1, transform: 'translateX(0)' },
+                },
+                slideUpAndFade: {
+                    from: { opacity: 0, transform: 'translateY(2px)' },
+                    to: { opacity: 1, transform: 'translateY(0)' },
+                },
+                slideRightAndFade: {
+                    from: { opacity: 0, transform: 'translateX(-2px)' },
+                    to: { opacity: 1, transform: 'translateX(0)' },
+                },
+            },
+            animation: {
+                slideDownAndFade: 'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideLeftAndFade: 'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+            },
         },
         colors: {
             'transparent': 'transparent',
@@ -42,6 +58,11 @@ module.exports = {
             'warning-light': '#FBA94',
             'warning-base': '#EB8A1D',
             'warning-dark': '#2E1B06',
+            'blue-light': '#9EB6F1',
+            'blue-mid': '#6A92F2',
+            'blue-dark': '#2660EB',
+            'black-light': '#292929',
+            'black-dark': '#020202'
         },
     },
     plugins: [],

@@ -9,29 +9,32 @@ export const findByGroupName = async (event: H3Event<EventHandlerRequest>): Prom
     const query = getQuery(event);
     const group_name = query.group_name?.toString();
     
-    const group = await prisma.groups_of_cards.findUnique({
-        where: {
-            name: group_name,
-        }
-    });
-    const idGroup = Number(group?.id ?? 0);
-
-    if (!idGroup || idGroup === 0) {
+    if (!group_name) {
         throw createError({
-            statusCode: 200,
+            statusCode: 400,
             statusMessage: `No find ID for this group name ${group_name}`
         })
     }
 
     const cards = await prisma.cards.findMany({
-        where: {
-            "fk_cards__groups_of_cards__id": idGroup,
-        }
+        include: {
+            groups_of_cards: {
+                select: {
+                    name: true,
+                },
+            },
+        },
+    }).then((cards) => {
+        return cards.map((card) => {
+            return {
+                id: card.id,
+                image_url: card.image_url,
+                group: card.groups_of_cards.name,
+            }
+        }).filter((card) => card.group === group_name);
     })
 
-
-
     return {
-        data: cards
+        data: cards,
     };
 }
