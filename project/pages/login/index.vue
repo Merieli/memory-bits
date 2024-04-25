@@ -3,13 +3,24 @@ import texts from '~/configs/texts.json';
 import { type LevelGet } from '~/interfaces/api/LevelGet';
 import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { useNotificationStore } from '~/stores/notification';
+import { useUserStore } from '~/stores/user';
 
 const props = defineProps({})
 
 const levelsOptions = ref<string[]>([]);
 const level = ref()
+const username = ref('');
+
+const playIsDisabled = computed(() => {
+    if (level.value && username.value) {
+       return true;
+    }
+
+    return false;
+})
 
 const storeNotify = useNotificationStore();
+const storeUser = useUserStore();
 
 const playGame = () => {
     console.log('Play game')
@@ -35,8 +46,7 @@ const getAllLevels = async () => {
                 type: 'success',
                 autoClose: 3000
             }
-        })
-    
+        })    
     }
 }
 getAllLevels()
@@ -56,6 +66,7 @@ getAllLevels()
         " for="username">
             Username: 
             <input
+                v-model="username"
                 id="username"
                 class="inline-flex items-center justify-center 
                     h-[35px] w-[150px] 
@@ -199,7 +210,10 @@ getAllLevels()
             focus:shadow-[0_0_0_2px] 
             focus:shadow-blue-dark 
             cursor-pointer
-        ">
+        "   
+            :disabled="playIsDisabled"
+            @click="storeUser.loginUserOrCreate(username)"
+        >
           Play
         </button>
     </div>

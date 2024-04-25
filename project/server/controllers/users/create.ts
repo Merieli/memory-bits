@@ -23,6 +23,11 @@ export const create = async (event: H3Event<EventHandlerRequest>): Promise<Respo
 
     const user = await prisma.users.create({
         data: data.getAll(),
+    }).catch(() => {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'The username is already in use'
+        });
     });
 
     return {
