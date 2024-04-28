@@ -5,7 +5,6 @@ All tasks of memory bits.
 - [ ] Library of components ~3d #feat
 - [ ] Create container docker for project [31/02/24->??/??/24]
 - [ ] Login page ~3d #feat
-  - [ ] Create action to validate user existence in the database, if it exists, pull data from it, if not, create a new user
   - [ ]  User can click a button to start the game. When this button is clicked, a timer will start
 - [ ] Game page ~10d #feat
   - [ ] Card component ~1d #feat
@@ -20,6 +19,7 @@ All tasks of memory bits.
 
 ### Done ✅
 
+- [x] Create action to validate user existence in the database, if it exists, pull data from it, if not, create a new user
 - [x] Create endpoint to get all matchs by user id ~1d #feat
 - [x] Create endpoint to put match ~1d #feat
 - [x] Create endpoint to get cards by level ~1d #feat

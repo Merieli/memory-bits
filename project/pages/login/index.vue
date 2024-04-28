@@ -1,52 +1,44 @@
 <script setup lang="ts">
 import texts from '~/configs/texts.json';
 import { type LevelGet } from '~/interfaces/api/LevelGet';
+import type { LevelsGame } from '~/interfaces/LevelsGame.type';
 import { type ResponseApi } from '~/interfaces/ResponseApi.type';
+import { useGameStore } from '~/stores/game';
 import { useNotificationStore } from '~/stores/notification';
-import { useUserStore } from '~/stores/user';
 
-const props = defineProps({})
-
-const levelsOptions = ref<string[]>([]);
-const level = ref()
-const username = ref('');
-
-const playIsDisabled = computed(() => {
-    if (level.value && username.value) {
-       return true;
-    }
-
-    return false;
-})
+const runtimeConfig = useRuntimeConfig();
 
 const storeNotify = useNotificationStore();
-const storeUser = useUserStore();
+const gameStore = useGameStore();
+
+const levelsOptions = ref<string[]>([]);
+const level = ref<LevelsGame | string>('');
+const username = ref<string>('');
+
+const playIsDisabled = computed<boolean>(() => {
+    return !(Boolean(level.value) && Boolean(username.value));
+})
 
 const playGame = () => {
-    console.log('Play game')
-};
+    if (!playIsDisabled.value) {
+        gameStore.startTheGame(username.value, level.value as LevelsGame);
+    }
+}
 
 const getAllLevels = async () => {
     try {
-        const { data } = await $fetch<ResponseApi<LevelGet[]>>('http://localhost:3000/api/v1/levels')
+        const { data } = await $fetch<ResponseApi<LevelGet[]>>(`${runtimeConfig.public.API_URL}/levels`)
         levelsOptions.value = data.map((level) => level.name);
     } catch (error) {
-        console.error(error)
+        console.error(error);
+
         storeNotify.$patch({
             notification: {
                 message: 'Error to get levels',
                 type: 'error',
                 autoClose: 3000
             }
-        })
-    } finally {
-        storeNotify.$patch({
-            notification: {
-                message: 'Get levels',
-                type: 'success',
-                autoClose: 3000
-            }
-        })    
+        });
     }
 }
 getAllLevels()
@@ -212,7 +204,7 @@ getAllLevels()
             cursor-pointer
         "   
             :disabled="playIsDisabled"
-            @click="storeUser.loginUserOrCreate(username)"
+            @click="playGame"
         >
           Play
         </button>
