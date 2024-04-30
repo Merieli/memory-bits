@@ -5,7 +5,7 @@ All tasks of memory bits.
 - [ ] Library of components ~3d #feat
 - [ ] Create container docker for project [31/02/24->??/??/24]
 - [ ] Login page ~3d #feat
-  - [ ]  User can click a button to start the game. When this button is clicked, a timer will start
+  - [x] User can click a button to start the game. When this button is clicked, a timer will start
 - [ ] Game page ~10d #feat
   - [ ] Card component ~1d #feat
   - [ ] Header component ~4d #feat

@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import texts from '~/configs/texts.json';
-import { type LevelGet } from '~/interfaces/api/LevelGet';
 import type { LevelsGame } from '~/interfaces/LevelsGame.type';
-import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { useGameStore } from '~/stores/game';
-import { useNotificationStore } from '~/stores/notification';
+import { useLevelStore } from '~/stores/level';
 
 const runtimeConfig = useRuntimeConfig();
 
-const storeNotify = useNotificationStore();
 const gameStore = useGameStore();
+const levelStore = useLevelStore();
 
 const levelsOptions = ref<string[]>([]);
 const level = ref<LevelsGame | string>('');
@@ -25,31 +23,23 @@ const playGame = () => {
     }
 }
 
-const getAllLevels = async () => {
-    try {
-        const { data } = await $fetch<ResponseApi<LevelGet[]>>(`${runtimeConfig.public.API_URL}/levels`)
-        levelsOptions.value = data.map((level) => level.name);
-    } catch (error) {
-        console.error(error);
-
-        storeNotify.$patch({
-            notification: {
-                message: 'Error to get levels',
-                type: 'error',
-                autoClose: 3000
-            }
-        });
-    }
+const allLevels = await levelStore.getAllLevels();
+if (allLevels) {
+    levelsOptions.value = allLevels.map((level) => level.name);
 }
-getAllLevels()
 </script>
 
 <template>
-    <h1 class="text-3xl font-bold underline mb-8">
+    <h1 class="text-8xl font-medium mb-24 absolute top-[20%]">
         {{ texts.projectTitle }}
     </h1>
-    <div class="flex flex-col justify-center min-h-36">
-        <Label class="text-[15px] font-semibold leading-[35px] 
+    <img src="~/assets/img/chat.svg" alt="Logo" 
+        class="w-[500px] h-[500px] mb-8
+            absolute top-[25%]
+        " 
+    />
+    <div class="flex flex-col justify-center min-h-36 z-10">
+        <Label class="text-xl font-semibold leading-[35px] 
             flex flex-wrap items-center 
             gap-[15px] 
             px-5 mb-8
@@ -64,7 +54,7 @@ getAllLevels()
                     h-[35px] w-[150px] 
                     rounded-[4px] 
                     appearance-none px-[10px] 
-                    text-[15px] leading-none  
+                    text-xl leading-none  
                     focus:shadow-[0_0_0_2px_blue-dark] 
                     outline-none
 
@@ -82,7 +72,7 @@ getAllLevels()
             >
         </Label>
         <Label class="flex flex-wrap items-center 
-            text-[15px] font-semibold leading-[35px] 
+            text-xl font-semibold leading-[35px] 
             gap-[15px] 
             px-5 mb-8
 
@@ -93,7 +83,7 @@ getAllLevels()
                 <SelectTrigger
                     class="inline-flex flex-1 items-center justify-between 
                         rounded px-[15px] 
-                        text-[13px] leading-none 
+                        text-xl leading-none 
                         h-[35px] min-w-[160px] gap-[5px] 
 
                         bg-white 
@@ -146,7 +136,7 @@ getAllLevels()
                                 v-for="(option, index) in levelsOptions"
                                 :key="index"
                                 class="flex items-center
-                                    text-[13px] leading-none 
+                                    text-xl leading-none 
                                     h-[25px]
                                     rounded-[3px] 
                                     pr-[35px] pl-[25px] 
@@ -188,12 +178,14 @@ getAllLevels()
                 </SelectPortal>
             </SelectRoot>
         </Label>
-        <button class="inline-flex items-center justify-center 
-            h-[35px] 
+        <button class="inline-flex items-center justify-center self-end
+            h-[35px] max-w-28
+            mr-5
+
             rounded 
             px-[15px]
-            text-[15px] leading-none font-medium  
-            outline-none 
+            text-2xl leading-none font-medium  
+            outline-none
 
             bg-blue-mid 
             text-white 
@@ -202,6 +194,9 @@ getAllLevels()
             focus:shadow-[0_0_0_2px] 
             focus:shadow-blue-dark 
             cursor-pointer
+
+            disabled:bg-blue-light
+            disabled:cursor-not-allowed
         "   
             :disabled="playIsDisabled"
             @click="playGame"

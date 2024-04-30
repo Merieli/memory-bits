@@ -1,4 +1,3 @@
-import type { LevelsGame } from "~/interfaces/LevelsGame.type";
 import { useNotificationStore } from "./notification";
 
 export const useCardStore = defineStore('card', () => {
@@ -7,13 +6,14 @@ export const useCardStore = defineStore('card', () => {
 
     const cards = ref([]);
 
-
-    const getCardsByLevel = async (level: LevelsGame) => {
+    /**
+     * 
+     */
+    const getCardsByLevel = async (levelId: number) => {
         try {
-            
             const response: any = await $fetch(`${runtimeConfig.public.API_URL}/cards`, {
                 query: {
-                    level_id: level,
+                    level_id: levelId,
                 },
             });
     
@@ -22,7 +22,7 @@ export const useCardStore = defineStore('card', () => {
         } catch (error) {
             storeNotify.$patch({
                 notification: {
-                    message: `Error to get cards by level ${level}`,
+                    message: `Error to get cards by level ${levelId}`,
                     type: 'error',
                     autoClose: 3000
                 }

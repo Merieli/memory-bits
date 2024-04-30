@@ -40,6 +40,9 @@ module.exports = {
                 slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
                 slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
             },
+            fontFamily: {
+                sans: ["VT323", 'monospace']
+            }
         },
         colors: {
             'transparent': 'transparent',
@@ -64,6 +67,9 @@ module.exports = {
             'black-light': '#292929',
             'black-dark': '#020202'
         },
+        fontFamily:{
+            mono: ["VT323", 'monospace']
+        }
     },
     plugins: [],
 }
