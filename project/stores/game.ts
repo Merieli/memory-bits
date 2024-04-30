@@ -16,16 +16,16 @@ export const useGameStore = defineStore("game", () => {
     const game = ref();
 
     /**
-     * Timer of the game in seconds
+     * Duration of the game in seconds
      */
-    const timer = ref(0);
+    const duration = ref(0);
 
     const timerIntervalId = ref();
     const level = ref<LevelsGame>('easy');
 
     const startTimer = () => {
         timerIntervalId.value = setInterval(() => {
-            timer.value += 1;
+            duration.value += 1;
         }, 1000);
     }
 
@@ -38,7 +38,7 @@ export const useGameStore = defineStore("game", () => {
      */
     const startTheGame = async (currentName: string, currentLevel: LevelsGame) => {
         try {
-            timer.value = 0;
+            duration.value = 0;
             level.value = currentLevel;
 
             const id = levelStore.levelsByName[currentLevel.toLowerCase()];
@@ -72,7 +72,9 @@ export const useGameStore = defineStore("game", () => {
 
     return {
         game,
-        startTheGame
+        startTheGame,
+        level,
+        duration
     }
 }, {
     persist: true,
