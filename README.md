@@ -3,7 +3,7 @@
     <br>
     <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png" alt="Logo" width="120">
     <br><br>
-    Project Title
+    Memory Bits
 </h1>
 
 <p align="center">
@@ -33,7 +33,7 @@
 
 ## ⚡ Tech Stack
 
-**Client:** <img src="https://img.icons8.com/color/48/000000/vue-js.png" width="18px"/> Vue.js, <img src="https://img.icons8.com/color/48/000000/typescript.png" width="18px"/> TypeScript, <img src="https://img.icons8.com/color/48/000000/tailwind_css.png" width="18px"/> Tailwind, <img src="https://img.icons8.com/color/48/000000/sass-avatar.png" width="18px"/> SASS, <img src="https://vue-styleguidist.github.io/assets/logo.png" width="18px"/> Vue Styleguidist
+**Client:** <img src="https://img.icons8.com/color/48/nuxt-jc.png" width="18px"/> Nuxt, <img src="https://img.icons8.com/color/48/000000/typescript.png" width="18px"/> TypeScript, <img src="https://img.icons8.com/color/48/000000/tailwind_css.png" width="18px"/> Tailwind
 
 **Server:** Node, Express
 
@@ -57,34 +57,17 @@ mysql -uroot -p
 
 Run Locally
 ```bash
-# Remover comandos de package quando projeto estiver criado
-# Usar o script shell para gerar os comandos de atualização de pacotes
-~/scripts/update_npm_dep.sh ./package.json
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 # Clone the project
   git clone https://link-to-project
 
 # Go to the project directory
-  cd {project-name}
-
-# Update all dependencies
-  npm update
+  cd memory-bits
 
 # Install dependencies
   npm install
 
-# Install compatible Node.js with nvm
-  nvm use
-
 # Start the server
   npm run dev
-```
-
-work
-```bash
-# Commit changes
-  npm run commit
 ```
 
 ## :octocat: Contributing

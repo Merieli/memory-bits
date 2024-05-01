@@ -1,4 +1,3 @@
-
 export const useNotificationStore = defineStore('notify', () => {
     const notification = reactive({
         message: '',
@@ -6,7 +5,14 @@ export const useNotificationStore = defineStore('notify', () => {
         autoClose: 3000
     })
 
+    function $reset() {
+        notification.message = '';
+        notification.type = 'info';
+        notification.autoClose = 3000;
+    }
+
     return {
-        notification
+        notification,
+        $reset
     }
 })

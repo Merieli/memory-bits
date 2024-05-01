@@ -43,10 +43,14 @@ export const useGameStore = defineStore("game", () => {
 
             const id = levelStore.levelsByName[currentLevel.toLowerCase()];
     
-            await Promise.all([
+            const [ userCreated, allLevels ] = await Promise.all([
                 userStore.getOrCreateUser(currentName),
                 cardStore.getCardsByLevel(id)
             ]);
+
+            // TODO: Create new match in the database
+
+            if (!userCreated) return;
     
             startTimer();
 
@@ -59,6 +63,8 @@ export const useGameStore = defineStore("game", () => {
                     autoClose: 3000
                 }
             })
+
+            console.error(e);
         }
     }
 
@@ -74,7 +80,8 @@ export const useGameStore = defineStore("game", () => {
         game,
         startTheGame,
         level,
-        duration
+        duration,
+        user: userStore.user,
     }
 }, {
     persist: true,

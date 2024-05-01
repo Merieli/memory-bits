@@ -12,8 +12,7 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "lint:inspect": "@eslint/config-inspector",
-        "lintfix": "prettier --write --list-different . && npm run lint:js --fix",
-        "commit": "cz"
+        "lintfix": "prettier --write --list-different . && npm run lint:js --fix"
     },
     "dependencies": {
         "@pinia/nuxt": "^0.5.1",
@@ -33,7 +32,6 @@
         "@nuxtjs/i18n": "^8.2.0",
         "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
         "autoprefixer": "^10.4.19",
-        "commitizen": "^4.3.0",
         "cz-conventional-changelog": "^3.3.0",
         "eslint": "^8.57.0",
         "husky": "^9.0.11",

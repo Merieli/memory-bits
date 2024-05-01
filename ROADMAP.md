@@ -15,6 +15,7 @@ All tasks of memory bits.
     - [ ] O usuário pode clicar em qualquer cartão para revelar a imagem que está abaixo dele (alterá-la para o estado visível). A imagem será exibida até que o usuário clique em um segundo cartão
     - [ ] Observe the end of the match to save a match in the database
 - [ ] Game over page ~1d #feat
+- [ ] Win page ~1d #feat
 
 
 ### Done ✅

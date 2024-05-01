@@ -7,9 +7,9 @@ export const useCardStore = defineStore('card', () => {
     const cards = ref([]);
 
     /**
-     * 
+     * To get all cards by level
      */
-    const getCardsByLevel = async (levelId: number) => {
+    const getCardsByLevel = async (levelId: number): Promise<void> => {
         try {
             const response: any = await $fetch(`${runtimeConfig.public.API_URL}/cards`, {
                 query: {
@@ -27,6 +27,8 @@ export const useCardStore = defineStore('card', () => {
                     autoClose: 3000
                 }
             })
+
+            throw error;
         }
     }
 

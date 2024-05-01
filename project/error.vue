@@ -1,16 +1,17 @@
 <script setup lang='ts'>
-    const props = defineProps({
-        error: {
-            default: {
-                url: '',
-                statusCode: 0,
-                statusMessage: '',
-                message: '',
-                description: '',
-                data: {}
-            }
+
+const props = defineProps({
+    error: {
+        default: {
+            url: '',
+            statusCode: 0,
+            statusMessage: '',
+            message: '',
+            description: '',
+            data: {}
         }
-    })
+    }
+})
 </script>
     
 <template>

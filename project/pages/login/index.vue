@@ -4,8 +4,6 @@ import type { LevelsGame } from '~/interfaces/LevelsGame.type';
 import { useGameStore } from '~/stores/game';
 import { useLevelStore } from '~/stores/level';
 
-const runtimeConfig = useRuntimeConfig();
-
 const gameStore = useGameStore();
 const levelStore = useLevelStore();
 
