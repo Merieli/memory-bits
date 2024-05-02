@@ -1,10 +1,19 @@
+import type { Card } from "~/interfaces/Card.type";
 import { useNotificationStore } from "./notification";
 
 export const useCardStore = defineStore('card', () => {
     const runtimeConfig = useRuntimeConfig();
     const storeNotify = useNotificationStore();
 
-    const cards = ref([]);
+    /**
+     * All cards of current game
+     */
+    const cards = ref<Card[]>([]);
+
+    /**
+     * Used to some requests
+     */
+    const groupOfCardsId = ref<number>(0);
 
     /**
      * To get all cards by level
@@ -18,7 +27,7 @@ export const useCardStore = defineStore('card', () => {
             });
     
             cards.value = response.data;
-  
+            groupOfCardsId.value = cards.value[0].group_of_cards_id;
         } catch (error) {
             storeNotify.$patch({
                 notification: {
@@ -34,6 +43,7 @@ export const useCardStore = defineStore('card', () => {
 
     return {
         cards,
+        groupOfCardsId,
         getCardsByLevel
     }
 })

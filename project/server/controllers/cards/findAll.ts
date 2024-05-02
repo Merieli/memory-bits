@@ -1,6 +1,6 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
+import { type Card } from '~/interfaces/Card.type';
 import { type ResponseApi } from '~/interfaces/ResponseApi.type';
-import { type CardRequest } from '~/schema/cards.schema';
 import { prisma } from '../client';
 
 /**
@@ -9,7 +9,7 @@ import { prisma } from '../client';
 export const findAll = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
     const cards = await prisma.cards.findMany();
 
-    const data: CardRequest[] = cards.map((card) => {
+    const data: Card[] = cards.map((card) => {
         return {
             id: card.id,
             image_url: card.image_url,

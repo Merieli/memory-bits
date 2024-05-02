@@ -3,8 +3,8 @@ import { matchDatabaseSchema } from './matchDatabase.schema';
 
 const matchIds = z.object({
     id: z.number(),
-    users_id: z.number(),
-    levels_id: z.number(),
+    user_id: z.number(),
+    level_id: z.number(),
     group_of_cards_id: z.number(),
 });
 

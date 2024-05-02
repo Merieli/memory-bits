@@ -1,5 +1,5 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
-import { type CardRequest } from '~/schema/cards.schema';
+import { type Card } from '~/interfaces/Card.type';
 import { prisma } from '../client';
 
 /**
@@ -27,7 +27,7 @@ export const findByGroupId = async (event: H3Event<EventHandlerRequest>) => {
         }
     }
 
-    const data: CardRequest[] = cards.map((card) => {
+    const data: Card[] = cards.map((card) => {
         return {
             id: card.id,
             image_url: card.image_url,

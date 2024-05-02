@@ -1,10 +1,11 @@
 import { useNotificationStore } from "./notification";
 
 export const useUserStore = defineStore("user", () => {
-    const user = ref();
     const storeNotify = useNotificationStore();
     const runtimeConfig = useRuntimeConfig();
 
+    const user = ref();
+    
     const validateUsername = (username: string) => {
         const errors = [];
         if (username.length < 4) {

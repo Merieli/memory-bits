@@ -1,11 +1,13 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
-import { type CardRequest } from '~/schema/cards.schema';
+import { type Card } from '~/interfaces/Card.type';
+import { type ResponseApi } from '~/interfaces/ResponseApi.type';
 import { prisma } from '../client';
 
 /**
  * To find cards by level id in database
  */
-export const findByLevelId = async (event: H3Event<EventHandlerRequest>) => {
+export const findByLevelId = async (event: H3Event<EventHandlerRequest>): 
+    Promise<ResponseApi<Card[]>> => {
     const query = getQuery(event);
     const level_id = query.level_id;
     
@@ -24,8 +26,6 @@ export const findByLevelId = async (event: H3Event<EventHandlerRequest>) => {
 
     if (!groupOfCards) {
         return {
-            statusCode: 200,
-            message: 'No cards found for this level id',
             data: [],
         }
     }
@@ -43,7 +43,7 @@ export const findByLevelId = async (event: H3Event<EventHandlerRequest>) => {
         }
     }
 
-    const data: CardRequest[] = cards.map((card) => {
+    const data: Card[] = cards.map((card) => {
         return {
             id: card.id,
             image_url: card.image_url,

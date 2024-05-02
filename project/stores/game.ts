@@ -1,6 +1,7 @@
 import type { LevelsGame } from "~/interfaces/LevelsGame.type";
 import { useCardStore } from "./card";
 import { useLevelStore } from "./level";
+import { useMatchStore } from "./match";
 import { useNotificationStore } from "./notification";
 import { useUserStore } from "./user";
 
@@ -10,6 +11,7 @@ export const useGameStore = defineStore("game", () => {
     const userStore = useUserStore();
     const cardStore = useCardStore();
     const levelStore = useLevelStore();
+    const matchStore = useMatchStore();
 
     const router = useRouter()
 
@@ -46,7 +48,7 @@ export const useGameStore = defineStore("game", () => {
     /**
      * Start the game to Get or create user, Get cards by level and Start the timer
      */
-    const startTheGame = async (currentName: string, currentLevel: LevelsGame) => {
+    const startTheGame = async (currentName: string, currentLevel: LevelsGame): Promise<void> => {
         try {
             duration.value = 0;
             level.value = currentLevel;
@@ -58,9 +60,15 @@ export const useGameStore = defineStore("game", () => {
                 cardStore.getCardsByLevel(id)
             ]);
 
-            // TODO: Create new match in the database
-
             if (!userCreated) return;
+
+            const match = await matchStore.createInitialMatchByPayload({
+                user_id: userStore.user.id,
+                level_id: id,
+                group_of_cards_id: cardStore.groupOfCardsId,
+            });
+
+            if (!match) return;
     
             startTimer();
 

@@ -1,26 +1,43 @@
+import type { Match } from "~/interfaces/Match.type";
+import type { MatchPayloadToCreate } from "~/interfaces/MatchPayloadToCreate.type";
 import type { ResponseApi } from "~/interfaces/ResponseApi.type";
-import type { LevelGet } from "~/interfaces/api/LevelGet";
 import { useNotificationStore } from "./notification";
 
 export const useMatchStore = defineStore('match', () => {
     const runtimeConfig = useRuntimeConfig();
     const storeNotify = useNotificationStore();
 
-    const createMatchByUserAndLevel = async (idUser: number, levelId: number) => {
+    const match = reactive<Match>({
+        id: 0,
+        user_id: 0,
+        level_id: 0,
+        group_of_cards_id: 0,
+        attempts: 0,
+        score: 0,
+        time: 0,
+    });
+
+    const createInitialMatchByPayload = async ({ user_id, level_id, group_of_cards_id }:
+           MatchPayloadToCreate): Promise<Match[] | null> => {
         try {
             const initialMatch = {
-                user_id: idUser,
-                level_id: levelId,
-                group_of_cards_id: 0, // Search for a group of cards
+                user_id,
+                level_id,
+                group_of_cards_id,
                 attempts: 0,
                 score: 0,
                 time: 0,
             }
 
-            const { data } = await $fetch<ResponseApi<LevelGet[]>>(`${runtimeConfig.public.API_URL}/matchs`, {
-                method: 'POST',
-                body: initialMatch
-            })
+            const { data } = await $fetch<ResponseApi<Match[]>>(
+                `${runtimeConfig.public.API_URL}/matchs`, 
+                {
+                    method: 'POST',
+                    body: initialMatch
+                }
+            );
+
+            if (!data) return null;
 
             return data;
         } catch (error) {
@@ -33,10 +50,13 @@ export const useMatchStore = defineStore('match', () => {
                     autoClose: 3000
                 }
             });
+
+            return null;
         }
     }
 
     return {
-        createMatchByUserAndLevel
+        match,
+        createInitialMatchByPayload
     }
 })
