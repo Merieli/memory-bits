@@ -20,6 +20,16 @@ export const useGameStore = defineStore("game", () => {
      */
     const duration = ref(0);
 
+    /**
+     * Timer in format mm:ss
+     */
+    const timer = computed<string>(() => {
+        const minutes = Math.floor(duration.value / 60);
+        const seconds = duration.value % 60;
+
+        return `${minutes < 10 ? '0': ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    })
+
     const timerIntervalId = ref();
     const level = ref<LevelsGame>('easy');
 
@@ -69,6 +79,11 @@ export const useGameStore = defineStore("game", () => {
     }
 
     // TODO: Add the logic to finish the game
+    const finishTheGame = async () => {
+        stopTimer();
+
+        // Update match in the database with values of game
+    }
 
 
     // TODO: Add the logic to restart the game
@@ -81,6 +96,7 @@ export const useGameStore = defineStore("game", () => {
         startTheGame,
         level,
         duration,
+        timer,
         user: userStore.user,
     }
 }, {

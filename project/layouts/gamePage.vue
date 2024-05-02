@@ -7,12 +7,13 @@
             <slot />
         </main>
     </div>
-    <BaseFooter />
+    <BaseFooter class="text-white" />
 </template>
     
 <style lang='postcss' scoped>
 .layoutcenter {
     @apply flex flex-col justify-center items-center
-        h-dvh bg-[#F5F5F5];
+        h-dvh;
+    background: repeat-x url("../assets/img/wallpaper.svg") center/ cover;
 }
 </style>

@@ -8,6 +8,7 @@
 .footer {
     @apply fixed bottom-0 left-0 
         w-full text-center
+        text-lg
         my-4;
 }
 </style>
