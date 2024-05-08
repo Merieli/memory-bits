@@ -1,12 +1,13 @@
 import { type EventHandlerRequest, type H3Event } from 'h3';
 import { CreateUserRequestDTO } from '~/dtos/create-user-request-dto/createUserRequestDto';
 import { type ResponseApi } from '~/interfaces/ResponseApi.type';
+import type { User } from '~/interfaces/User.type';
 import { prisma } from '../client';
 
 /**
  * Create a user in the database 
  */
-export const create = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
+export const create = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<User>> => {
     const body = await readBody(event);
 
     if (!body.username) {

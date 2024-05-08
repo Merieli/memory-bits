@@ -1,10 +1,15 @@
+import type { ResponseApi } from "~/interfaces/ResponseApi.type";
+import type { User } from "~/interfaces/User.type";
 import { useNotificationStore } from "./notification";
 
 export const useUserStore = defineStore("user", () => {
     const storeNotify = useNotificationStore();
     const runtimeConfig = useRuntimeConfig();
 
-    const user = ref();
+    const user = reactive<User>({
+        id: 0,
+        username: '',
+    });
     
     const validateUsername = (username: string) => {
         const errors = [];
@@ -52,14 +57,15 @@ export const useUserStore = defineStore("user", () => {
      */
     const getOrCreateUser = async (username: string): Promise<boolean | any> => {
         try {   
-            const response: any = await $fetch(`${runtimeConfig.public.API_URL}/users`, {
+            const response = await $fetch<ResponseApi<User>>(`${runtimeConfig.public.API_URL}/users`, {
                 query: {
                     name: username,
                 },
             });
         
             if (response.data) {
-                user.value = response.data;
+                user.username = response.data.username;
+                user.id = response.data.id;
                 return response.data;
             }
     

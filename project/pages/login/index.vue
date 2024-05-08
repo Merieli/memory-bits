@@ -28,12 +28,12 @@ if (allLevels) {
 </script>
 
 <template>
-    <h1 class="text-8xl font-medium mb-24 absolute top-[20%]">
+    <h1 class="text-8xl font-medium mb-24 absolute title">
         {{ texts.projectTitle }}
     </h1>
     <img src="~/assets/img/chat.svg" alt="Logo" 
         class="w-[500px] h-[500px] mb-8
-            absolute top-[25%]
+            absolute background
         " 
     />
     <div class="flex flex-col justify-center min-h-36 z-10">
@@ -204,4 +204,12 @@ if (allLevels) {
     </div>
 </template>
 
-<style lang="postcss" scoped></style>
+<style lang="postcss" scoped>
+.title {
+    top: calc((100% - 500px) /3);
+}
+
+.background {
+    top: calc((100% - 500px) / 2 );
+}
+</style>

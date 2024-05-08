@@ -27,9 +27,10 @@ const quantityLevelIcon = computed(() => {
 })
 
 const username = computed(() => {
-    const firstLetter = gameStore.user.username.charAt(0).toUpperCase();
+    if (!gameStore.user.username) return '';
     
-    return `${firstLetter}${gameStore.user.username.slice(1)}`;
+    const firstLetter = gameStore.user.username.charAt(0).toUpperCase();
+    return firstLetter + gameStore.user.username.slice(1);
 })
 </script>
 
