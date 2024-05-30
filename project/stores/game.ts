@@ -55,12 +55,12 @@ export const useGameStore = defineStore("game", () => {
 
             const id = levelStore.levelsByName[currentLevel.toLowerCase()];
     
-            const [ userCreated, allLevels ] = await Promise.all([
+            const [ userCreated, cards ] = await Promise.all([
                 userStore.getOrCreateUser(currentName),
                 cardStore.getCardsByLevel(id)
             ]);
 
-            if (!userCreated) return;
+            if (!userCreated) return;   
 
             const match = await matchStore.createInitialMatchByPayload({
                 user_id: userStore.user.id,
@@ -95,9 +95,6 @@ export const useGameStore = defineStore("game", () => {
 
 
     // TODO: Add the logic to restart the game
-
-
-    // TODO: Add the logic to get the score of the game
 
     return {
         game,
