@@ -19,12 +19,11 @@ export const useCardStore = defineStore('card', () => {
     const generatePairsOfCards = (cards: Card[]): CardState[] => {
         // TODO: duplicar cartas para formar os pares
 
-
+        // TODO: embaralhar as cartas
         return cards.map((card: Card): CardState => {
-            // TODO: adicionar uuid para uniqueId da carta
             return {
                 ...card,
-                uniqueId: `${card.id}-${Math.random()}`,
+                uniqueId: crypto.randomUUID(),
                 memorized: false,
                 turn: 0,
                 visible: false,

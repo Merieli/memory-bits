@@ -53,7 +53,11 @@ export const useGameStore = defineStore("game", () => {
             duration.value = 0;
             level.value = currentLevel;
 
-            const id = levelStore.levelsByName[currentLevel.toLowerCase()];
+            /** Como o app só terá cartas no level hard e easy trata para não obter erro ao selecionar o medium */
+            const levelToFind = currentLevel.toLowerCase() === 'medium' ? 'hard' : currentLevel.toLowerCase();
+
+            const id = levelStore.levelsByName[levelToFind];
+
     
             const [ userCreated, cards ] = await Promise.all([
                 userStore.getOrCreateUser(currentName),
