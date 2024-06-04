@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useCardStore } from '~/stores/card';
 import { useGameStore } from '~/stores/game';
+import { useMatchStore } from '~/stores/match';
 
 const props = defineProps({})
 
 const gameStore = useGameStore();
 const cardStore = useCardStore();
+const matchStore = useMatchStore();
 
 definePageMeta({
     layout: 'game-page',
@@ -28,6 +30,7 @@ const username = computed(() => {
     />
     <CardItem v-for="card in cardStore.cards" :key="card.uniqueId" 
         :image="card.image_url"
+        @click="matchStore.activateCardInRound(card)"
     />
 </template>
 
