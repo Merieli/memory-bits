@@ -41,7 +41,13 @@
 
 ## 🗂 How to Use
 
-Run MySQL database with Docker
+1. In the root directory `/`.
+  Configure the `.env` file with the same variables as the `/.env.example` file
+
+2. In the `/project` directory.
+  Configure the `.env` file with the same variables as the `/project/.env.example` file
+
+3. Run MySQL database with Docker
 ```bash
 # Executar container docker
 docker compose up -d
@@ -54,8 +60,7 @@ mysql -uroot -p
 # Depois digitar a senha e usar o Banco de Dados
 ```
 
-
-Run Locally
+4. Run Locally
 ```bash
 # Clone the project
   git clone https://link-to-project

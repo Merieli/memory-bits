@@ -1,12 +1,9 @@
+import { useMatchStore } from "~/stores/match";
+
 export default defineNuxtRouteMiddleware((to, from) => {
-    console.log('Auth Middleware');
+    const matchStore = useMatchStore();
 
-    const loggedIn = true;
-
-    // TODO: criar a lógica para verificar se o usuário está logado
-
-    if (to.name !== 'login' && !loggedIn) {
-        console.log('User not logged in');
+    if (to.name !== 'login' && !matchStore.match.user_id) {
         return navigateTo('/login');
     }
 
