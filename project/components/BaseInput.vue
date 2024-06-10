@@ -1,11 +1,11 @@
 <script setup lang='ts'>
 interface PropsBaseInput {
     label: string
-    minLenght?: number
+    minLength?: number
     maxLength?: number
 }
 const props = withDefaults(defineProps<PropsBaseInput>(), {
-    minLenght: 3,
+    minLength: 3,
     maxLength: 20
 });
 
@@ -17,7 +17,7 @@ const isInvalid = computed(() => {
         return false;
     }
 
-    return model.value.length > props.maxLength || model.value.length < props.minLenght;
+    return model.value.length > props.maxLength || model.value.length < props.minLength;
 });
 
 const errorMessage = computed(() => {
@@ -26,7 +26,7 @@ const errorMessage = computed(() => {
     }
 
     if (isInvalid.value) {
-        return `Enter more than ${props.minLenght} characters`;
+        return `Enter more than ${props.minLength} characters`;
     }
 
     return '';

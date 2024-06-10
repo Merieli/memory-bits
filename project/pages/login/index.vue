@@ -46,8 +46,8 @@ if (allLevels) {
         <BaseInput  
             v-model:value="username" 
             label="Username" 
-            :min-lenght="4"
-            :max-lenght="50"
+            :min-length="4"
+            :max-length="50"
             @invalid="setInvalidUsername" 
         />
         <BaseSelect v-model:value="level" label="Level" :options="levelsOptions" />
