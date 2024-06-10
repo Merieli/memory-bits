@@ -11,8 +11,14 @@ const levelsOptions = ref<string[]>([]);
 const level = ref<LevelsGame | string>('');
 const username = ref<string>('');
 
+const invalidUsername = ref<boolean>(false);
+
+const setInvalidUsername = (value: boolean) => {
+    invalidUsername.value = value;
+}
+
 const playIsDisabled = computed<boolean>(() => {
-    return !(Boolean(level.value) && Boolean(username.value));
+    return !(Boolean(level.value) && Boolean(username.value)) || invalidUsername.value;
 })
 
 const playGame = () => {
@@ -37,7 +43,13 @@ if (allLevels) {
         " 
     />
     <div class="flex flex-col justify-center min-h-36 z-10">
-        <BaseInput  v-model:value="username" label="Username" />
+        <BaseInput  
+            v-model:value="username" 
+            label="Username" 
+            :min-lenght="4"
+            :max-lenght="50"
+            @invalid="setInvalidUsername" 
+        />
         <BaseSelect v-model:value="level" label="Level" :options="levelsOptions" />
         <button class="inline-flex items-center justify-center self-end
             h-[35px] max-w-28
