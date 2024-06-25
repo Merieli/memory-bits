@@ -1,48 +1,42 @@
-import type { LevelsGame } from "~/interfaces/LevelsGame.type";
-import { useCardStore } from "./card";
-import { useLevelStore } from "./level";
-import { useMatchStore } from "./match";
-import { useNotificationStore } from "./notification";
-import { useUserStore } from "./user";
+import type { LevelsGame } from '~/interfaces/LevelsGame.type'
+import { useCardStore } from './card'
+import { useLevelStore } from './level'
+import { useMatchStore } from './match'
+import { useNotificationStore } from './notification'
+import { useUserStore } from './user'
 
-
-export const useGameStore = defineStore("game", () => {
-    const storeNotify = useNotificationStore();
-    const userStore = useUserStore();
-    const cardStore = useCardStore();
-    const levelStore = useLevelStore();
-    const matchStore = useMatchStore();
+export const useGameStore = defineStore('game', () => {
+    const storeNotify = useNotificationStore()
+    const userStore = useUserStore()
+    const cardStore = useCardStore()
+    const levelStore = useLevelStore()
+    const matchStore = useMatchStore()
 
     const router = useRouter()
 
-    const game = ref();
-
-    /**
-     * Duration of the game in seconds
-     */
-    const duration = ref(0);
+    const game = ref()
 
     /**
      * Timer in format mm:ss
      */
     const timer = computed<string>(() => {
-        const minutes = Math.floor(duration.value / 60);
-        const seconds = duration.value % 60;
+        const minutes = Math.floor(matchStore.match.time / 60)
+        const seconds = matchStore.match.time % 60
 
-        return `${minutes < 10 ? '0': ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
     })
 
-    const timerIntervalId = ref();
-    const level = ref<LevelsGame>('easy');
+    const timerIntervalId = ref()
+    const level = ref<LevelsGame>('easy')
 
     const startTimer = () => {
         timerIntervalId.value = setInterval(() => {
-            duration.value += 1;
-        }, 1000);
+            matchStore.match.time += 1
+        }, 1000)
     }
 
     const stopTimer = () => {
-        clearInterval(timerIntervalId.value);
+        clearInterval(timerIntervalId.value)
     }
 
     /**
@@ -50,61 +44,63 @@ export const useGameStore = defineStore("game", () => {
      */
     const startTheGame = async (currentName: string, currentLevel: LevelsGame): Promise<void> => {
         try {
-            duration.value = 0;
-            level.value = currentLevel;
+            matchStore.match.time = 0
+            level.value = currentLevel
 
             /** Como o app só terá cartas no level hard e easy trata para não obter erro ao selecionar o medium */
-            const levelToFind = currentLevel.toLowerCase() === 'medium' ? 'hard' : currentLevel.toLowerCase();
+            const levelToFind = currentLevel.toLowerCase() === 'medium' ? 'hard' : currentLevel.toLowerCase()
 
-            const id = levelStore.levelsByName[levelToFind];
+            const id = levelStore.levelsByName[levelToFind]
 
-    
-            const [ userCreated, cards ] = await Promise.all([
+            const [userCreated, cards] = await Promise.all([
                 userStore.getOrCreateUser(currentName),
-                cardStore.getCardsByLevel(id)
-            ]);
+                cardStore.getCardsByLevel(id),
+            ])
 
-            if (!userCreated) return;   
+            if (!userCreated)
+                return
 
             const match = await matchStore.createInitialMatchByPayload({
                 user_id: userStore.user.id,
                 level_id: id,
                 group_of_cards_id: cardStore.groupOfCardsId,
-            });
+            })
 
-            if (!match) return;
-    
-            startTimer();
+            if (!match)
+                return
 
-            router.push({ name: 'index' });
-        } catch (e) {
+            startTimer()
+
+            router.push({ name: 'index' })
+        }
+        catch (e) {
             storeNotify.$patch({
                 notification: {
                     message: `Error in start the game`,
                     type: 'error',
-                    autoClose: 3000
-                }
+                    autoClose: 3000,
+                },
             })
 
-            console.error(e);
+            console.error(e)
         }
     }
 
     // TODO: Add the logic to finish the game
     const finishTheGame = async () => {
-        stopTimer();
+        stopTimer()
 
-        // Update match in the database with values of game
+        matchStore.saveMatch()
     }
-
 
     // TODO: Add the logic to restart the game
 
     return {
         game,
         startTheGame,
+        finishTheGame,
         level,
-        duration,
+        duration: computed(() => matchStore.match.time),
         timer,
         user: userStore.user,
     }

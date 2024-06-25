@@ -4,14 +4,14 @@ All tasks of memory bits.
 
 - [ ] Library of components ~3d #feat
 - [ ] Create container docker for project [31/02/24->??/??/24]
-- [ ] Login page ~3d #feat
+- [x] Login page ~3d #feat
   - [x] User can click a button to start the game. When this button is clicked, a timer will start
 - [ ] Game page ~10d #feat
-  - [ ] Card component ~1d #feat
-  - [ ] Header component ~4d #feat
+  - [x] Card component ~1d #feat
+  - [x] Header component ~4d #feat
   - [ ] Logic of game ~10d #feat
-    - [ ] Create action to search for cards to display according to the difficulty level selected by the user
-    - [ ] User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
+    - [x] Create action to search for cards to display according to the difficulty level selected by the user
+    - [x] User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
     - [ ] O usuário pode clicar em qualquer cartão para revelar a imagem que está abaixo dele (alterá-la para o estado visível). A imagem será exibida até que o usuário clique em um segundo cartão
     - [ ] Observe the end of the match to save a match in the database
 - [ ] Game over page ~1d #feat
