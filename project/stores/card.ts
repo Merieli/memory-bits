@@ -1,19 +1,21 @@
-import type { Card, CardState } from '~/interfaces/Card.type'
 import { useNotificationStore } from './notification'
+
+import type { Card, CardState } from '~/interfaces/Card.type'
 
 export const useCardStore = defineStore('card', () => {
     const runtimeConfig = useRuntimeConfig()
     const storeNotify = useNotificationStore()
 
-    /**
-     * All cards of current game and your state
-     */
+    /** All cards of current game and your state */
     const cards = ref<CardState[]>([])
 
-    /**
-     * Used to some requests
-     */
+    /** Used to some requests */
     const groupOfCardsId = ref<number>(0)
+
+    /** Check if all cards are memorized */
+    const allMemorizedCards = computed<boolean>(() => {
+        return cards.value.every(card => card.memorized)
+    })
 
     function shuffleList<T>(array: T[]): T[] {
         for (let i = array.length - 1; i > 0; i--) {
@@ -42,7 +44,7 @@ export const useCardStore = defineStore('card', () => {
     /**
      * To get all cards by level
      */
-    const getCardsByLevel = async (levelId: number): Promise<void> => {
+    const getCardsByLevel = async (levelId: number): Promise<boolean> => {
         try {
             const response: any = await $fetch(`${runtimeConfig.public.API_URL}/cards`, {
                 query: {
@@ -52,6 +54,8 @@ export const useCardStore = defineStore('card', () => {
 
             cards.value = generatePairsOfCards(response.data)
             groupOfCardsId.value = cards.value[0].group_of_cards_id
+
+            return true
         }
         catch (error) {
             storeNotify.$patch({
@@ -134,6 +138,7 @@ export const useCardStore = defineStore('card', () => {
     return {
         cards,
         groupOfCardsId,
+        allMemorizedCards,
         getCardsByLevel,
         updateCardState,
         memorizesCards,

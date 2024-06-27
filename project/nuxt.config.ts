@@ -1,9 +1,9 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
     alias: {
-        "@": "/<srcDir>",
-        "~~": "/<rootDir>",
-        "@@": "/<rootDir>",
+        '@': '/<srcDir>',
+        '~~': '/<rootDir>',
+        '@@': '/<rootDir>',
         'css': '/<srcDir>/assets/css',
     },
     app: {
@@ -17,18 +17,18 @@ export default defineNuxtConfig({
         },
     },
     modules: [
-        '@nuxt/eslint', 
+        '@nuxt/eslint',
         'nuxt-icon',
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
         'radix-vue/nuxt',
         'nuxt-zod-i18n',
-        '@nuxtjs/i18n'
+        '@nuxtjs/i18n',
     ],
     eslint: {
     },
     typescript: {
-        typeCheck: true
+        typeCheck: true,
     },
     pinia: {
         storesDirs: ['./store/**'],
@@ -36,6 +36,6 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             API_URL: process.env.API_URL || 'http://localhost:3000/api/v1',
-        }
-    }
+        },
+    },
 })

@@ -8,7 +8,7 @@ const props = defineProps<CardItemProps>()
 
 const emit = defineEmits(['turn'])
 
-function turnCard(): void {
+const turnCard = (): void => {
     emit('turn')
 }
 </script>

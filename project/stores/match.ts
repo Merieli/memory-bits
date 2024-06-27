@@ -1,16 +1,16 @@
+import { useCardStore } from './card'
+import { useNotificationStore } from './notification'
+
 import type { CardState } from '~/interfaces/Card.type'
 import type { Match, MatchState, RoundOfGame } from '~/interfaces/Match.type'
 import type { MatchPayloadToCreate } from '~/interfaces/MatchPayloadToCreate.type'
 import type { ResponseApi } from '~/interfaces/ResponseApi.type'
-import { useCardStore } from './card'
-import { useNotificationStore } from './notification'
 
 export const useMatchStore = defineStore('match', () => {
     const runtimeConfig = useRuntimeConfig()
     const storeNotify = useNotificationStore()
     const { updateCardState, memorizesCards, hideCards } = useCardStore()
 
-    // TODO: salvar o match no BD ao final do jogo
     const match = reactive<MatchState>({
         id: 0,
         user_id: 0,
@@ -31,11 +31,6 @@ export const useMatchStore = defineStore('match', () => {
 
     /** Rounds of the game */
     const rounds = ref<RoundOfGame[]>([])
-
-    /** Score of the game */
-    const score = computed(() => {
-        return rounds.value.reduce((acc, round) => acc + round.score, 0)
-    })
 
     const createInitialMatchByPayload = async ({ user_id, level_id, group_of_cards_id }:
     MatchPayloadToCreate): Promise<Match | null> => {
@@ -84,15 +79,13 @@ export const useMatchStore = defineStore('match', () => {
 
     const saveMatch = async (): Promise<void> => {
         try {
-            const { data } = await $fetch<ResponseApi<Match>>(
+            await $fetch<ResponseApi<Match>>(
                 `${runtimeConfig.public.API_URL}/matchs/${match.id}`,
                 {
                     method: 'PUT',
                     body: match,
                 },
             )
-
-            // TODO:   Update match in the database with values of game
         }
         catch (error) {
             storeNotify.$patch({
@@ -115,7 +108,7 @@ export const useMatchStore = defineStore('match', () => {
     })
 
     const updateMatch = () => {
-        match.score = score.value
+        match.score += round.score
 
         if (round.sumAttempt) {
             match.attempts += 1
@@ -123,6 +116,13 @@ export const useMatchStore = defineStore('match', () => {
         }
 
         match.attempts = 0
+    }
+
+    const resetMatch = (): void => {
+        match.group_of_cards_id = 0
+        match.attempts = 0
+        match.score = 0
+        match.time = 0
     }
 
     /** Reset the current round */
@@ -143,7 +143,7 @@ export const useMatchStore = defineStore('match', () => {
             if (averageTurn <= 1)
                 round.score += 80
 
-            if (averageTurn >= 2)
+            if (averageTurn >= 2 && averageTurn < 3)
                 round.score += 50
 
             if (averageTurn >= 3)
@@ -192,8 +192,8 @@ export const useMatchStore = defineStore('match', () => {
         match,
         round,
         rounds,
-        score,
         isLastCardOfRound,
+        resetMatch,
         createInitialMatchByPayload,
         activateCardInRound,
         saveMatch,

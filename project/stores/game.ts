@@ -1,9 +1,10 @@
-import type { LevelsGame } from '~/interfaces/LevelsGame.type'
 import { useCardStore } from './card'
 import { useLevelStore } from './level'
 import { useMatchStore } from './match'
 import { useNotificationStore } from './notification'
 import { useUserStore } from './user'
+
+import type { LevelsGame } from '~/interfaces/LevelsGame.type'
 
 export const useGameStore = defineStore('game', () => {
     const storeNotify = useNotificationStore()
@@ -35,7 +36,7 @@ export const useGameStore = defineStore('game', () => {
         }, 1000)
     }
 
-    const stopTimer = () => {
+    const stopTimer = (): void => {
         clearInterval(timerIntervalId.value)
     }
 
@@ -44,7 +45,7 @@ export const useGameStore = defineStore('game', () => {
      */
     const startTheGame = async (currentName: string, currentLevel: LevelsGame): Promise<void> => {
         try {
-            matchStore.match.time = 0
+            matchStore.resetMatch()
             level.value = currentLevel
 
             /** Como o app só terá cartas no level hard e easy trata para não obter erro ao selecionar o medium */
@@ -57,7 +58,7 @@ export const useGameStore = defineStore('game', () => {
                 cardStore.getCardsByLevel(id),
             ])
 
-            if (!userCreated)
+            if (!userCreated || !cards)
                 return
 
             const match = await matchStore.createInitialMatchByPayload({
@@ -86,19 +87,62 @@ export const useGameStore = defineStore('game', () => {
         }
     }
 
-    // TODO: Add the logic to finish the game
-    const finishTheGame = async () => {
+    /**
+     * Finish the game and save the match
+     */
+    const finishTheGameByResult = async (win?: boolean): Promise<void> => {
         stopTimer()
 
-        matchStore.saveMatch()
+        await matchStore.saveMatch()
+
+        if (win === undefined)
+            return
+
+        if (win) {
+            router.push({ name: 'win' })
+            return
+        }
+
+        router.push({ name: 'gameover' })
     }
 
-    // TODO: Add the logic to restart the game
+    /** Restart the game with the current data */
+    const restartTheGame = (): void => {
+        finishTheGameByResult()
+
+        startTheGame(userStore.user.username, level.value)
+    }
+
+    /** Finish the game if all cards are memorized */
+    watch(() => cardStore.allMemorizedCards, (win: boolean) => {
+        if (win)
+            finishTheGameByResult(win)
+    })
+
+    /**
+     * Defines the defeat by time of the game
+     * @param time - Time in seconds
+     */
+    const definesDefeatByTime = (time: number) => {
+        const minutes = Math.floor(time / 60)
+
+        if (minutes >= 8 && level.value === 'easy')
+            finishTheGameByResult(false)
+
+        if (minutes >= 7 && level.value === 'medium')
+            finishTheGameByResult(false)
+
+        if (minutes >= 7 && level.value === 'hard')
+            finishTheGameByResult(false)
+    }
+
+    watch(() => matchStore.match.time, definesDefeatByTime)
 
     return {
         game,
         startTheGame,
-        finishTheGame,
+        finishTheGame: finishTheGameByResult,
+        restartTheGame,
         level,
         duration: computed(() => matchStore.match.time),
         timer,

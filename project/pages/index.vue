@@ -3,8 +3,6 @@ import { useCardStore } from '~/stores/card';
 import { useGameStore } from '~/stores/game';
 import { useMatchStore } from '~/stores/match';
 
-const props = defineProps({})
-
 const gameStore = useGameStore()
 const cardStore = useCardStore()
 const matchStore = useMatchStore()
@@ -25,11 +23,17 @@ const username = computed(() => {
 <template>
     <BaseHeader
         :username="username"
-        :score="matchStore.score"
+        :score="matchStore.match.score"
         :level="gameStore.level"
         :timer="gameStore.timer"
+        :attempts="matchStore.match.attempts"
+        @restart="gameStore.restartTheGame"
     />
-    <div class="grid grid-cols-6 gap-3 h-[calc(100vh_-_192px)]">
+    <div
+        class="grid grid-cols-6 gap-3 h-[calc(100vh_-_192px)]
+        max-h-[710px]
+    "
+    >
         <CardItem
             v-for="card in cardStore.cards" :key="card.uniqueId"
             :image="card.image_url"
@@ -37,6 +41,7 @@ const username = computed(() => {
             @click="matchStore.activateCardInRound(card)"
         />
     </div>
+    <NuxtPage />
 </template>
 
 <style lang="postcss" scoped>
