@@ -99,11 +99,11 @@ export const useGameStore = defineStore('game', () => {
             return
 
         if (win) {
-            router.push({ name: 'win' })
+            router.push({ name: 'index-win' })
             return
         }
 
-        router.push({ name: 'gameover' })
+        router.push({ name: 'index-gameover' })
     }
 
     /** Restart the game with the current data */

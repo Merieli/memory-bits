@@ -4,22 +4,21 @@ All tasks of memory bits.
 
 - [ ] Library of components ~3d #feat
 - [ ] Create container docker for project [31/02/24->??/??/24]
-- [x] Login page ~3d #feat
-  - [x] User can click a button to start the game. When this button is clicked, a timer will start
-- [ ] Game page ~10d #feat
-  - [x] Card component ~1d #feat
-  - [x] Header component ~4d #feat
-  - [ ] Logic of game ~10d #feat
-    - [x] Create action to search for cards to display according to the difficulty level selected by the user
-    - [x] User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
-    - [x] O usuário pode clicar em qualquer cartão para revelar a imagem que está abaixo dele (alterá-la para o estado visível). A imagem será exibida até que o usuário clique em um segundo cartão
-    - [ ] Observe the end of the match to save a match in the database
-- [ ] Game over page ~1d #feat
-- [ ] Win page ~1d #feat
-
 
 ### Done ✅
 
+- [x] Login page ~3d #feat
+  - [x] User can click a button to start the game. When this button is clicked, a timer will start
+- [x] Game page ~10d #feat
+  - [x] Card component ~1d #feat
+  - [x] Header component ~4d #feat
+  - [x] Logic of game ~10d #feat
+    - [x] Create action to search for cards to display according to the difficulty level selected by the user
+    - [x] User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
+    - [x] O usuário pode clicar em qualquer cartão para revelar a imagem que está abaixo dele (alterá-la para o estado visível). A imagem será exibida até que o usuário clique em um segundo cartão
+    - [x] Observe the end of the match to save a match in the database
+- [x] Game over page ~1d #feat
+- [x] Win page ~1d #feat
 - [x] Create action to validate user existence in the database, if it exists, pull data from it, if not, create a new user
 - [x] Create endpoint to get all matchs by user id ~1d #feat
 - [x] Create endpoint to put match ~1d #feat

@@ -107,9 +107,11 @@ export const useMatchStore = defineStore('match', () => {
         return firstCard.id === secondCard.id
     })
 
+    /** Update the match score */
     const updateMatch = () => {
         match.score += round.score
 
+        // TODO: validar se está atualizando a tentativa no momento certo
         if (round.sumAttempt) {
             match.attempts += 1
             return

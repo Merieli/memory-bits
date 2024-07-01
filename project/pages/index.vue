@@ -30,9 +30,11 @@ const username = computed(() => {
         @restart="gameStore.restartTheGame"
     />
     <div
-        class="grid grid-cols-6 gap-3 h-[calc(100vh_-_192px)]
-        max-h-[710px]
-    "
+        class="grid gap-3
+            grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6
+            grid-rows-[repeat(18,380px)] sm:grid-rows-[repeat(9,330px)] md:grid-rows-[repeat(6,350px)] lg:grid-rows-[repeat(3,200px)]
+            md:min-h-[calc(100vh_-_192px)] lg:max-h-[710px]
+        "
     >
         <CardItem
             v-for="card in cardStore.cards" :key="card.uniqueId"

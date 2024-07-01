@@ -9,10 +9,11 @@ module.exports = {
         './error.vue',
     ],
     screens: {
-        sm: '480px',
-        md: '768px',
-        lg: '976px',
-        xl: '1440px',
+        'sm': '480px',
+        'md': '768px',
+        'lg': '976px',
+        'xl': '1024px',
+        '2xl': '1440px',
     },
     theme: {
         extend: {
@@ -41,8 +42,8 @@ module.exports = {
                 slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
             },
             fontFamily: {
-                sans: ["VT323", 'monospace']
-            }
+                sans: ['VT323', 'monospace'],
+            },
         },
         colors: {
             'transparent': 'transparent',
@@ -65,11 +66,11 @@ module.exports = {
             'blue-mid': '#6A92F2',
             'blue-dark': '#2660EB',
             'black-light': '#292929',
-            'black-dark': '#020202'
+            'black-dark': '#020202',
         },
-        fontFamily:{
-            mono: ["VT323", 'monospace']
-        }
+        fontFamily: {
+            mono: ['VT323', 'monospace'],
+        },
     },
     plugins: [],
 }

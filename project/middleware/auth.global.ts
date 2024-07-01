@@ -1,12 +1,9 @@
-import { useMatchStore } from "~/stores/match";
+import { useMatchStore } from '~/stores/match'
 
-export default defineNuxtRouteMiddleware((to, from) => {
-    const matchStore = useMatchStore();
+export default defineNuxtRouteMiddleware((to) => {
+    const matchStore = useMatchStore()
 
-    if (to.name !== 'login' && !matchStore.match.user_id) {
-        // TODO: voltar linha abaixo
-        // return navigateTo('/login');
-    }
-
-    return ;
-});
+    // if (to.name !== 'login' && !matchStore.match.user_id)
+    // TODO: remover comentário
+    // return navigateTo('/login')
+})

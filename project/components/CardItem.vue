@@ -8,7 +8,7 @@ const props = defineProps<CardItemProps>()
 
 const emit = defineEmits(['turn'])
 
-const turnCard = (): void => {
+function turnCard(): void {
     emit('turn')
 }
 </script>
@@ -38,13 +38,12 @@ const turnCard = (): void => {
     transition: all .5s;
     backface-visibility: hidden;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.30);
-    width: 100%;
-    height: 100%;
     position: absolute;
 
     @apply bg-[#FFFBEC] rounded-lg max-w-full
             grid place-items-center cursor-pointer
-            border-[#333333] border-4;
+            border-[#333333] border-4
+            h-full w-full;
 }
 
 .hide {
