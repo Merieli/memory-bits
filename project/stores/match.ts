@@ -111,7 +111,6 @@ export const useMatchStore = defineStore('match', () => {
     const updateMatch = () => {
         match.score += round.score
 
-        // TODO: validar se está atualizando a tentativa no momento certo
         if (round.sumAttempt) {
             match.attempts += 1
             return
@@ -140,7 +139,7 @@ export const useMatchStore = defineStore('match', () => {
         const averageTurn = turns / round.cards.length
 
         if (winRound) {
-            round.sumAttempt = true
+            round.sumAttempt = false
 
             if (averageTurn <= 1)
                 round.score += 80
@@ -153,7 +152,7 @@ export const useMatchStore = defineStore('match', () => {
         }
 
         if (!winRound) {
-            round.sumAttempt = false
+            round.sumAttempt = true
             round.score = 0
         }
 

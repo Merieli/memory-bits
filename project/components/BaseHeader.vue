@@ -41,7 +41,7 @@ const quantityLevelIcon = computed(() => {
                     >
                     <p class="text">{{ score }}</p>
                 </span>
-                <div class="flex items-center">
+                <div class="flex items-center min-h-9">
                     <img
                         v-for="n, index in quantityLevelIcon"
                         :key="index"

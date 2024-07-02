@@ -124,19 +124,39 @@ export const useGameStore = defineStore('game', () => {
      * @param time - Time in seconds
      */
     const definesDefeatByTime = (time: number) => {
+        console.debug('🟣 ~ definesDefeatByTime ~ time:', time)
         const minutes = Math.floor(time / 60)
+        console.debug('🟣 ~ definesDefeatByTime ~ minutes:', minutes)
 
-        if (minutes >= 8 && level.value === 'easy')
+        if (minutes >= 5 && level.value === 'easy')
             finishTheGameByResult(false)
 
-        if (minutes >= 7 && level.value === 'medium')
+        if (minutes >= 3 && level.value === 'medium')
             finishTheGameByResult(false)
 
-        if (minutes >= 7 && level.value === 'hard')
+        if (minutes >= 2 && level.value === 'hard')
+            finishTheGameByResult(false)
+    }
+
+    /**
+     * Defines the defeat by attempts of the game
+     * @param attempts - Number of attempts
+     */
+    const definesDefeatByAttempts = (attempts: number) => {
+        console.debug('🟣 ~ definesDefeatByAttempts ~ attempts:', attempts)
+        if (level.value === 'easy' && attempts >= 10)
+            finishTheGameByResult(false)
+
+        if (level.value === 'medium' && attempts >= 8)
+            finishTheGameByResult(false)
+
+        if (level.value === 'hard' && attempts >= 5)
             finishTheGameByResult(false)
     }
 
     watch(() => matchStore.match.time, definesDefeatByTime)
+
+    watch(() => matchStore.match.attempts, definesDefeatByAttempts, { immediate: true })
 
     return {
         game,

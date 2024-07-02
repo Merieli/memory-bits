@@ -21,29 +21,32 @@ const username = computed(() => {
 </script>
 
 <template>
-    <BaseHeader
-        :username="username"
-        :score="matchStore.match.score"
-        :level="gameStore.level"
-        :timer="gameStore.timer"
-        :attempts="matchStore.match.attempts"
-        @restart="gameStore.restartTheGame"
-    />
-    <div
-        class="grid gap-3
-            grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6
-            grid-rows-[repeat(18,380px)] sm:grid-rows-[repeat(9,330px)] md:grid-rows-[repeat(6,350px)] lg:grid-rows-[repeat(3,200px)]
-            md:min-h-[calc(100vh_-_192px)] lg:max-h-[710px]
-        "
-    >
-        <CardItem
-            v-for="card in cardStore.cards" :key="card.uniqueId"
-            :image="card.image_url"
-            :show="card.visible"
-            @click="matchStore.activateCardInRound(card)"
+    <div>
+        <BaseHeader
+            :username="username"
+            :score="matchStore.match.score"
+            :level="gameStore.level"
+            :timer="gameStore.timer"
+            :attempts="matchStore.match.attempts"
+            @restart="gameStore.restartTheGame"
         />
+        <div
+            class="grid gap-3
+                grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6
+                grid-rows-[repeat(18,380px)] sm:grid-rows-[repeat(9,330px)] md:grid-rows-[repeat(6,350px)] lg:grid-rows-[repeat(3,200px)]
+                md:min-h-[calc(100vh_-_192px)] lg:max-h-[710px]
+                mb-28 lg:mb-0
+            "
+        >
+            <CardItem
+                v-for="card in cardStore.cards" :key="card.uniqueId"
+                :image="card.image_url"
+                :show="card.visible"
+                @click="matchStore.activateCardInRound(card)"
+            />
+        </div>
+        <NuxtPage />
     </div>
-    <NuxtPage />
 </template>
 
 <style lang="postcss" scoped>
