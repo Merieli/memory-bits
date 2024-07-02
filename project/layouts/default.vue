@@ -1,5 +1,4 @@
-<script setup lang='ts'>
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <div class="layoutcenter">
@@ -8,7 +7,7 @@
     <BaseFooter />
 </template>
 
-<style lang='postcss' scoped>
+<style lang="postcss" scoped>
 .layoutcenter {
     @apply flex flex-col justify-center items-center
         h-dvh bg-[#F5F5F5];

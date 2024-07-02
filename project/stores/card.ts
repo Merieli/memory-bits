@@ -14,13 +14,13 @@ export const useCardStore = defineStore('card', () => {
 
     /** Check if all cards are memorized */
     const allMemorizedCards = computed<boolean>(() => {
-        return cards.value.every(card => card.memorized)
+        return cards.value.every((card) => card.memorized)
     })
 
     function shuffleList<T>(array: T[]): T[] {
         for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]
+            const j = Math.floor(Math.random() * (i + 1))
+            ;[array[i], array[j]] = [array[j], array[i]]
         }
         return array
     }
@@ -46,18 +46,20 @@ export const useCardStore = defineStore('card', () => {
      */
     const getCardsByLevel = async (levelId: number): Promise<boolean> => {
         try {
-            const response: any = await $fetch(`${runtimeConfig.public.API_URL}/cards`, {
-                query: {
-                    level_id: levelId,
-                },
-            })
+            const response: any = await $fetch(
+                `${runtimeConfig.public.API_URL}/cards`,
+                {
+                    query: {
+                        level_id: levelId,
+                    },
+                }
+            )
 
             cards.value = generatePairsOfCards(response.data)
             groupOfCardsId.value = cards.value[0].group_of_cards_id
 
             return true
-        }
-        catch (error) {
+        } catch (error) {
             storeNotify.$patch({
                 notification: {
                     message: `Error to get cards by level ${levelId}`,
@@ -74,10 +76,9 @@ export const useCardStore = defineStore('card', () => {
      * Update the state of the card clicked, if the card is memorized return null
      */
     const updateCardState = (card: CardState): CardState | null => {
-        const index = cards.value.findIndex(c => c.uniqueId === card.uniqueId)
+        const index = cards.value.findIndex((c) => c.uniqueId === card.uniqueId)
 
-        if (cards.value[index].memorized)
-            return null
+        if (cards.value[index].memorized) return null
 
         if (!cards.value[index].visible) {
             cards.value[index].turn += 1

@@ -1,24 +1,26 @@
-import { type EventHandlerRequest, type H3Event } from 'h3';
-import { ZodError } from 'zod';
-import { CreateCardRequestDTO } from '~/dtos/create-card-request-dto/createCardRequestDto';
-import { type ResponseApi } from '~/interfaces/ResponseApi.type';
-import { prisma } from '../client';
+import { type EventHandlerRequest, type H3Event } from 'h3'
+import { ZodError } from 'zod'
+import { CreateCardRequestDTO } from '~/dtos/create-card-request-dto/createCardRequestDto'
+import { type ResponseApi } from '~/interfaces/ResponseApi.type'
+import { prisma } from '../client'
 
 /**
  * Create a new card in the database
  */
-export const create = async (event: H3Event<EventHandlerRequest>): Promise<ResponseApi<any>> => {
+export const create = async (
+    event: H3Event<EventHandlerRequest>
+): Promise<ResponseApi<any>> => {
     try {
-        const body = await readBody(event);
-        const data = new CreateCardRequestDTO(body);
-        
+        const body = await readBody(event)
+        const data = new CreateCardRequestDTO(body)
+
         await prisma.cards.create({
             data: data.getAll(),
-        });
-    
+        })
+
         return {
-            data
-        };
+            data,
+        }
     } catch (error) {
         if (error instanceof ZodError) {
             throw createError({
@@ -31,10 +33,10 @@ export const create = async (event: H3Event<EventHandlerRequest>): Promise<Respo
                     detail: 'The received card is invalid, please check the errors and try again.',
                     errors: (error as any).issues,
                     instance: event.path,
-                }
-            });
+                },
+            })
         }
 
-        throw error;
-    }  
+        throw error
+    }
 }

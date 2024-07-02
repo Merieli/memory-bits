@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useCardStore } from '~/stores/card';
-import { useGameStore } from '~/stores/game';
-import { useMatchStore } from '~/stores/match';
+import { useCardStore } from '~/stores/card'
+import { useGameStore } from '~/stores/game'
+import { useMatchStore } from '~/stores/match'
 
 const gameStore = useGameStore()
 const cardStore = useCardStore()
@@ -12,8 +12,7 @@ definePageMeta({
 })
 
 const username = computed(() => {
-    if (!gameStore.user.username)
-        return ''
+    if (!gameStore.user.username) return ''
 
     const firstLetter = gameStore.user.username.charAt(0).toUpperCase()
     return firstLetter + gameStore.user.username.slice(1)
@@ -31,15 +30,11 @@ const username = computed(() => {
             @restart="gameStore.restartTheGame"
         />
         <div
-            class="grid gap-3
-                grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6
-                grid-rows-[repeat(18,380px)] sm:grid-rows-[repeat(9,330px)] md:grid-rows-[repeat(6,350px)] lg:grid-rows-[repeat(3,200px)]
-                md:min-h-[calc(100vh_-_192px)] lg:max-h-[710px]
-                mb-28 lg:mb-0
-            "
+            class="grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-rows-[repeat(18,380px)] sm:grid-rows-[repeat(9,330px)] md:grid-rows-[repeat(6,350px)] lg:grid-rows-[repeat(3,200px)] md:min-h-[calc(100vh_-_192px)] lg:max-h-[710px] mb-28 lg:mb-0"
         >
             <CardItem
-                v-for="card in cardStore.cards" :key="card.uniqueId"
+                v-for="card in cardStore.cards"
+                :key="card.uniqueId"
                 :image="card.image_url"
                 :show="card.visible"
                 @click="matchStore.activateCardInRound(card)"
@@ -49,5 +44,4 @@ const username = computed(() => {
     </div>
 </template>
 
-<style lang="postcss" scoped>
-</style>
+<style lang="postcss" scoped></style>

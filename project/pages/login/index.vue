@@ -19,7 +19,10 @@ function setInvalidUsername(value: boolean) {
 }
 
 const playIsDisabled = computed<boolean>(() => {
-    return !(Boolean(level.value) && Boolean(username.value)) || invalidUsername.value
+    return (
+        !(Boolean(level.value) && Boolean(username.value)) ||
+        invalidUsername.value
+    )
 })
 
 function playGame() {
@@ -28,8 +31,7 @@ function playGame() {
 }
 
 const allLevels = await levelStore.getAllLevels()
-if (allLevels)
-    levelsOptions.value = allLevels.map(level => level.name)
+if (allLevels) levelsOptions.value = allLevels.map((level) => level.name)
 </script>
 
 <template>
@@ -37,10 +39,9 @@ if (allLevels)
         {{ texts.projectTitle }}
     </h1>
     <img
-        src="~/assets/img/chat.svg" alt="Logo"
-        class="w-[500px] h-[500px] mb-8
-            absolute background
-        "
+        src="~/assets/img/chat.svg"
+        alt="Logo"
+        class="w-[500px] h-[500px] mb-8 absolute background"
     >
     <div class="flex flex-col justify-center min-h-36 z-10">
         <BaseInput
@@ -50,28 +51,13 @@ if (allLevels)
             :max-length="50"
             @invalid="setInvalidUsername"
         />
-        <BaseSelect v-model:value="level" label="Level" :options="levelsOptions" />
+        <BaseSelect
+            v-model:value="level"
+            label="Level"
+            :options="levelsOptions"
+        />
         <button
-            class="inline-flex items-center justify-center self-end
-            h-[35px] max-w-28
-            mr-5
-
-            rounded
-            px-[15px]
-            text-2xl leading-none font-medium
-            outline-none
-
-            bg-blue-mid
-            text-white
-            hover:bg-blue-light
-
-            focus:shadow-[0_0_0_2px]
-            focus:shadow-blue-dark
-            cursor-pointer
-
-            disabled:bg-blue-light
-            disabled:cursor-not-allowed
-        "
+            class="inline-flex items-center justify-center self-end h-[35px] max-w-28 mr-5 rounded px-[15px] text-2xl leading-none font-medium outline-none bg-blue-mid text-white hover:bg-blue-light focus:shadow-[0_0_0_2px] focus:shadow-blue-dark cursor-pointer disabled:bg-blue-light disabled:cursor-not-allowed"
             :disabled="playIsDisabled"
             @click="playGame"
         >
@@ -82,10 +68,10 @@ if (allLevels)
 
 <style lang="postcss" scoped>
 .title {
-    top: calc((100% - 500px) /3);
+    top: calc((100% - 500px) / 3);
 }
 
 .background {
-    top: calc((100% - 500px) / 2 );
+    top: calc((100% - 500px) / 2);
 }
 </style>

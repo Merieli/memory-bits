@@ -9,10 +9,10 @@ module.exports = {
         './error.vue',
     ],
     screens: {
-        'sm': '480px',
-        'md': '768px',
-        'lg': '976px',
-        'xl': '1024px',
+        sm: '480px',
+        md: '768px',
+        lg: '976px',
+        xl: '1024px',
         '2xl': '1440px',
     },
     theme: {
@@ -36,19 +36,23 @@ module.exports = {
                 },
             },
             animation: {
-                slideDownAndFade: 'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-                slideLeftAndFade: 'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-                slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-                slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideDownAndFade:
+                    'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideLeftAndFade:
+                    'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideUpAndFade:
+                    'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideRightAndFade:
+                    'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
             },
             fontFamily: {
                 sans: ['VT323', 'monospace'],
             },
         },
         colors: {
-            'transparent': 'transparent',
-            'white': '#FFFFFF',
-            'black': '#000000',
+            transparent: 'transparent',
+            white: '#FFFFFF',
+            black: '#000000',
             'meri-light': '#E0BFFF',
             'meri-mid': '#BC72FF',
             'meri-dark': '#965CCC',

@@ -32,8 +32,11 @@ export const useMatchStore = defineStore('match', () => {
     /** Rounds of the game */
     const rounds = ref<RoundOfGame[]>([])
 
-    const createInitialMatchByPayload = async ({ user_id, level_id, group_of_cards_id }:
-    MatchPayloadToCreate): Promise<Match | null> => {
+    const createInitialMatchByPayload = async ({
+        user_id,
+        level_id,
+        group_of_cards_id,
+    }: MatchPayloadToCreate): Promise<Match | null> => {
         try {
             const initialMatch = {
                 user_id,
@@ -49,7 +52,7 @@ export const useMatchStore = defineStore('match', () => {
                 {
                     method: 'POST',
                     body: initialMatch,
-                },
+                }
             )
 
             match.id = data.id
@@ -57,12 +60,10 @@ export const useMatchStore = defineStore('match', () => {
             match.level_id = data.level_id
             match.group_of_cards_id = data.group_of_cards_id
 
-            if (!data)
-                return null
+            if (!data) return null
 
             return data
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error)
 
             storeNotify.$patch({
@@ -84,10 +85,9 @@ export const useMatchStore = defineStore('match', () => {
                 {
                     method: 'PUT',
                     body: match,
-                },
+                }
             )
-        }
-        catch (error) {
+        } catch (error) {
             storeNotify.$patch({
                 notification: {
                     message: 'Error to save match',
@@ -141,14 +141,11 @@ export const useMatchStore = defineStore('match', () => {
         if (winRound) {
             round.sumAttempt = false
 
-            if (averageTurn <= 1)
-                round.score += 80
+            if (averageTurn <= 1) round.score += 80
 
-            if (averageTurn >= 2 && averageTurn < 3)
-                round.score += 50
+            if (averageTurn >= 2 && averageTurn < 3) round.score += 50
 
-            if (averageTurn >= 3)
-                round.score += 30
+            if (averageTurn >= 3) round.score += 30
         }
 
         if (!winRound) {
@@ -166,23 +163,19 @@ export const useMatchStore = defineStore('match', () => {
      * Activate the card in the round when the user clicks
      */
     const activateCardInRound = (card: CardState): void => {
-        if (round.notAddCards)
-            return
+        if (round.notAddCards) return
 
         const currentCard = updateCardState(card)
-        if (!currentCard)
-            return
+        if (!currentCard) return
 
         round.cards.push(currentCard)
 
         if (isLastCardOfRound.value) {
             round.notAddCards = true
             setTimeout(() => {
-                if (isPairCards.value)
-                    round.cards = memorizesCards(round.cards)
+                if (isPairCards.value) round.cards = memorizesCards(round.cards)
 
-                if (!isPairCards.value)
-                    round.cards = hideCards(round.cards)
+                if (!isPairCards.value) round.cards = hideCards(round.cards)
 
                 setsTheRoundScoreByResult(isPairCards.value)
             }, 1500)

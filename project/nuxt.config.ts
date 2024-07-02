@@ -4,7 +4,7 @@ export default defineNuxtConfig({
         '@': '/<srcDir>',
         '~~': '/<rootDir>',
         '@@': '/<rootDir>',
-        'css': '/<srcDir>/assets/css',
+        css: '/<srcDir>/assets/css',
     },
     app: {
         // baseURL: process.env.BASE_URL || "http://localhost:3000",
@@ -25,8 +25,7 @@ export default defineNuxtConfig({
         'nuxt-zod-i18n',
         '@nuxtjs/i18n',
     ],
-    eslint: {
-    },
+    eslint: {},
     typescript: {
         typeCheck: true,
     },

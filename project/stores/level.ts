@@ -11,15 +11,16 @@ export const useLevelStore = defineStore('level', () => {
 
     const getAllLevels = async () => {
         try {
-            const { data } = await $fetch<ResponseApi<LevelGet[]>>(`${runtimeConfig.public.API_URL}/levels`)
+            const { data } = await $fetch<ResponseApi<LevelGet[]>>(
+                `${runtimeConfig.public.API_URL}/levels`
+            )
 
             data.forEach((level) => {
                 levelsByName[level.name.toLowerCase()] = level.id
             })
 
             return data
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error)
 
             storeNotify.$patch({
