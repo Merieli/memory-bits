@@ -130,18 +130,20 @@ export const useGameStore = defineStore(
          * @param time - Time in seconds
          */
         const definesDefeatByTime = (time: number) => {
-            console.debug('🟣 ~ definesDefeatByTime ~ time:', time)
             const minutes = Math.floor(time / 60)
-            console.debug('🟣 ~ definesDefeatByTime ~ minutes:', minutes)
 
-            if (minutes >= 5 && level.value === 'easy')
+            if (minutes >= 5 && level.value.toLowerCase() === 'easy') {
                 finishTheGameByResult(false)
+                return
+            }
 
-            if (minutes >= 3 && level.value === 'medium')
+            if (minutes >= 3 && level.value.toLowerCase() === 'medium') {
                 finishTheGameByResult(false)
+            }
 
-            if (minutes >= 2 && level.value === 'hard')
+            if (minutes >= 2 && level.value.toLowerCase() === 'hard') {
                 finishTheGameByResult(false)
+            }
         }
 
         /**
@@ -149,15 +151,19 @@ export const useGameStore = defineStore(
          * @param attempts - Number of attempts
          */
         const definesDefeatByAttempts = (attempts: number) => {
-            console.debug('🟣 ~ definesDefeatByAttempts ~ attempts:', attempts)
-            if (level.value === 'easy' && attempts >= 10)
+            if (level.value.toLowerCase() === 'easy' && attempts >= 10){
                 finishTheGameByResult(false)
+                return;
+            }
 
-            if (level.value === 'medium' && attempts >= 8)
+            if (level.value.toLowerCase() === 'medium' && attempts >= 8) {
                 finishTheGameByResult(false)
+                return;
+            }
 
-            if (level.value === 'hard' && attempts >= 5)
+            if (level.value.toLowerCase() === 'hard' && attempts >= 1) {
                 finishTheGameByResult(false)
+            }
         }
 
         watch(() => matchStore.match.time, definesDefeatByTime)
@@ -169,7 +175,7 @@ export const useGameStore = defineStore(
         return {
             game,
             startTheGame,
-            finishTheGame: finishTheGameByResult,
+            finishTheGameByResult,
             restartTheGame,
             level,
             duration: computed(() => matchStore.match.time),

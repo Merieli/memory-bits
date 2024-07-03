@@ -71,5 +71,5 @@ export const handleGet = async (event: H3Event<EventHandlerRequest>) => {
         }
     }
 
-    return await findAll(event)
+    return await findAll()
 }
