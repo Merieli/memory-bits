@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-    Pixel art memory game inspired by Mario and Tibia.
+    Pixel art memory game, a fullstack web app, with database and API. It has a login that records game data per user and the easy, medium and difficult levels.
     <br><br>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
@@ -20,7 +20,7 @@
 ## ✨ Features
 
 - Multi devices
-- API Rest
+- API REST
 - CRUD in the database
 - Fullstack app
 
