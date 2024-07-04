@@ -2,9 +2,6 @@
 
 All tasks of memory bits.
 
-- [ ] Library of components ~3d #feat
-- [ ] Create container docker for project [31/02/24->??/??/24]
-
 ### Done ✅
 
 - [x] Login page ~3d #feat
