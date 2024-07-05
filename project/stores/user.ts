@@ -48,7 +48,6 @@ export const useUserStore = defineStore(
             }
 
             if (!valid) {
-                // - Add um input de erro no formulário
                 return false
             }
 

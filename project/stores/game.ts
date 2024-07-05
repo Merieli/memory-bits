@@ -132,16 +132,16 @@ export const useGameStore = defineStore(
         const definesDefeatByTime = (time: number) => {
             const minutes = Math.floor(time / 60)
 
-            if (minutes >= 5 && level.value.toLowerCase() === 'easy') {
+            if (minutes >= 10 && level.value.toLowerCase() === 'easy') {
                 finishTheGameByResult(false)
                 return
             }
 
-            if (minutes >= 3 && level.value.toLowerCase() === 'medium') {
+            if (minutes >= 8 && level.value.toLowerCase() === 'medium') {
                 finishTheGameByResult(false)
             }
 
-            if (minutes >= 2 && level.value.toLowerCase() === 'hard') {
+            if (minutes >= 5 && level.value.toLowerCase() === 'hard') {
                 finishTheGameByResult(false)
             }
         }
@@ -151,17 +151,17 @@ export const useGameStore = defineStore(
          * @param attempts - Number of attempts
          */
         const definesDefeatByAttempts = (attempts: number) => {
-            if (level.value.toLowerCase() === 'easy' && attempts >= 10){
+            if (level.value.toLowerCase() === 'easy' && attempts >= 15){
                 finishTheGameByResult(false)
                 return;
             }
 
-            if (level.value.toLowerCase() === 'medium' && attempts >= 8) {
+            if (level.value.toLowerCase() === 'medium' && attempts >= 10) {
                 finishTheGameByResult(false)
                 return;
             }
 
-            if (level.value.toLowerCase() === 'hard' && attempts >= 1) {
+            if (level.value.toLowerCase() === 'hard' && attempts >= 8) {
                 finishTheGameByResult(false)
             }
         }

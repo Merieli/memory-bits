@@ -4,6 +4,7 @@ interface PropsBaseInput {
     minLength?: number
     maxLength?: number
 }
+
 const props = withDefaults(defineProps<PropsBaseInput>(), {
     minLength: 3,
     maxLength: 20,
@@ -41,7 +42,7 @@ const errorMessage = computed(() => {
 
 watch(
     () => model.value,
-    (value) => {
+    () => {
         emit('invalid', isInvalid.value)
     }
 )
@@ -57,12 +58,12 @@ watch(
         >
             {{ label }}:
             <input
-                v-model="model"
                 id="username"
+                v-model="model"
                 class="inline-flex items-center justify-center h-[35px] w-[150px] rounded-[4px] appearance-none px-[10px] text-xl leading-none focus:shadow-[0_0_0_2px_blue-dark] outline-none bg-white shadow-black/10 shadow-[0_2px_10px] focus:outline-blue-dark selection:text-white selection:bg-blue-mid"
                 :name="label"
                 type="text"
-            />
+            >
         </Label>
         <p
             v-if="errorMessage"

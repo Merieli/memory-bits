@@ -12,7 +12,7 @@ All tasks of memory bits.
   - [x] Logic of game ~10d #feat
     - [x] Create action to search for cards to display according to the difficulty level selected by the user
     - [x] User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
-    - [x] O usuário pode clicar em qualquer cartão para revelar a imagem que está abaixo dele (alterá-la para o estado visível). A imagem será exibida até que o usuário clique em um segundo cartão
+    - [x] The user can click on any card to reveal the image below it (change it to visible state). The image will be displayed until the user clicks on a second card
     - [x] Observe the end of the match to save a match in the database
 - [x] Game over page ~1d #feat
 - [x] Win page ~1d #feat

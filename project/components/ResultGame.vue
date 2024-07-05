@@ -12,10 +12,21 @@ const text = computed(() => {
 })
 
 const storeGame = useGameStore()
+const router = useRouter()
+
+const isPageWinOrLose = computed(() => {
+    return router.currentRoute.value.name === 'index-win' || router.currentRoute.value.name === 'index-gameover'
+})
 </script>
 
 <template>
-    <div class="bg-black absolute top-0 left-0 w-full h-full opacity-80" />
+    <div
+        class="bg-black top-0 left-0 w-full h-full opacity-80"
+        :class="{
+            'fixed': isPageWinOrLose,
+            'absolute': !isPageWinOrLose,
+        }"
+    />
     <section
         class="flex flex-col justify-center items-center gap-4 w-full h-full top-0 left-0 z-10 absolute"
     >
