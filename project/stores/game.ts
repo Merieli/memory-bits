@@ -112,8 +112,6 @@ export const useGameStore = defineStore(
 
         /** Restart the game with the current data */
         const restartTheGame = (): void => {
-            finishTheGameByResult()
-
             startTheGame(userStore.user.username, level.value)
         }
 
