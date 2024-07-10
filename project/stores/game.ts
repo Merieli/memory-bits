@@ -31,6 +31,7 @@ export const useGameStore = defineStore(
 
         const timerIntervalId = ref()
         const level = ref<LevelsGame>('easy')
+        const isLoading = ref<boolean>(false)
 
         const startTimer = () => {
             timerIntervalId.value = setInterval(() => {
@@ -50,6 +51,7 @@ export const useGameStore = defineStore(
             currentLevel: LevelsGame
         ): Promise<void> => {
             try {
+                isLoading.value = true
                 matchStore.resetMatch()
                 level.value = currentLevel
 
@@ -89,6 +91,8 @@ export const useGameStore = defineStore(
                 })
 
                 console.error(e)
+            } finally {
+                isLoading.value = false
             }
         }
 
@@ -96,18 +100,28 @@ export const useGameStore = defineStore(
          * Finish the game and save the match
          */
         const finishTheGameByResult = async (win?: boolean): Promise<void> => {
-            stopTimer()
-
-            await matchStore.saveMatch()
-
-            if (win === undefined) return
-
-            if (win) {
-                router.push({ name: 'index-win' })
-                return
+            try {
+                isLoading.value = true
+                stopTimer()
+    
+                matchStore.$patch({
+                    gameResult: win,
+                })
+    
+                await matchStore.saveMatch()
+    
+                if (win === undefined) return
+    
+                if (win) {
+                    router.push({ name: 'index-win' })
+                    return
+                }
+    
+                router.push({ name: 'index-gameover' })
+            } finally {
+                isLoading.value = false
             }
-
-            router.push({ name: 'index-gameover' })
+            
         }
 
         /** Restart the game with the current data */
@@ -128,6 +142,8 @@ export const useGameStore = defineStore(
          * @param time - Time in seconds
          */
         const definesDefeatByTime = (time: number) => {
+            if (matchStore.gameResult !== null) return;
+
             const minutes = Math.floor(time / 60)
 
             if (minutes >= 10 && level.value.toLowerCase() === 'easy') {
@@ -137,6 +153,7 @@ export const useGameStore = defineStore(
 
             if (minutes >= 8 && level.value.toLowerCase() === 'medium') {
                 finishTheGameByResult(false)
+                return
             }
 
             if (minutes >= 5 && level.value.toLowerCase() === 'hard') {
@@ -149,6 +166,8 @@ export const useGameStore = defineStore(
          * @param attempts - Number of attempts
          */
         const definesDefeatByAttempts = (attempts: number) => {
+            if (matchStore.gameResult !== null) return;
+
             if (level.value.toLowerCase() === 'easy' && attempts >= 15){
                 finishTheGameByResult(false)
                 return;
@@ -175,6 +194,7 @@ export const useGameStore = defineStore(
             startTheGame,
             finishTheGameByResult,
             restartTheGame,
+            isLoading,
             level,
             duration: computed(() => matchStore.match.time),
             timer,

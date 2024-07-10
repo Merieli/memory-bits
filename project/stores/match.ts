@@ -21,6 +21,8 @@ export const useMatchStore = defineStore('match', () => {
         time: 0,
     })
 
+    const gameResult = ref<boolean | null>(null)
+
     /** Current round of the game */
     const round = reactive<RoundOfGame>({
         cards: [],
@@ -124,6 +126,8 @@ export const useMatchStore = defineStore('match', () => {
         match.attempts = 0
         match.score = 0
         match.time = 0
+
+        gameResult.value= null
     }
 
     /** Reset the current round */
@@ -187,6 +191,7 @@ export const useMatchStore = defineStore('match', () => {
         round,
         rounds,
         isLastCardOfRound,
+        gameResult,
         resetMatch,
         createInitialMatchByPayload,
         activateCardInRound,

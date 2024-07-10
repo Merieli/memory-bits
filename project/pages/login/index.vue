@@ -12,6 +12,9 @@ const levelsOptions = ref<string[]>([])
 const level = ref<LevelsGame | string>('')
 const username = ref<string>('')
 
+const allLevels = await levelStore.getAllLevels()
+if (allLevels) levelsOptions.value = allLevels.map((level) => level.name)
+
 const invalidUsername = ref<boolean>(false)
 
 function setInvalidUsername(value: boolean) {
@@ -29,9 +32,6 @@ function playGame() {
     if (!playIsDisabled.value)
         gameStore.startTheGame(username.value, level.value as LevelsGame)
 }
-
-const allLevels = await levelStore.getAllLevels()
-if (allLevels) levelsOptions.value = allLevels.map((level) => level.name)
 </script>
 
 <template>

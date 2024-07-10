@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { useNotificationStore } from '~/stores/notification'
+import { useGameStore } from '~/stores/game';
+import { useNotificationStore } from '~/stores/notification';
 
 const { $toast } = useNuxtApp()
 
 const storeNotify = useNotificationStore()
+const gameStore = useGameStore()
 
 storeNotify.$subscribe((mutation, state) => {
     if (state.notification.type === 'error') {
@@ -17,11 +19,24 @@ storeNotify.$subscribe((mutation, state) => {
         storeNotify.$reset()
     }
 })
+
+const { progress, isLoading, start, finish, clear } = useLoadingIndicator({
+    duration: 2000,
+    throttle: 200,
+})
+
+watch(() => gameStore.isLoading, (loading) => {
+    if (loading) {
+        start()
+        return;
+    }
+    finish()
+})
 </script>
 
 <template>
-    <NuxtLoadingIndicator />
     <NuxtLayout>
+        <NuxtLoadingIndicator :height="5" />
         <NuxtPage />
     </NuxtLayout>
 </template>

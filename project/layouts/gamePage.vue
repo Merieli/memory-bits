@@ -31,4 +31,10 @@ const isPageWinOrLose = computed(() => {
         lg:h-dvh;
     background: repeat-x url('../assets/img/wallpaper.svg') center/ cover;
 }
+
+@media screen and (max-height: 900px) {
+    .layoutcenter{
+        @apply h-full pb-16;
+    }
+}
 </style>
