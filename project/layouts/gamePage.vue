@@ -10,7 +10,8 @@ const isPageWinOrLose = computed(() => {
     <div
         class="layoutcenter"
         :class="{
-            'h-dvh': isPageWinOrLose
+            'h-dvh': isPageWinOrLose,
+            'fixedlayout': !isPageWinOrLose
         }"
     >
         <main
@@ -33,7 +34,7 @@ const isPageWinOrLose = computed(() => {
 }
 
 @media screen and (max-height: 900px) {
-    .layoutcenter{
+    .fixedlayout {
         @apply h-full pb-16;
     }
 }
