@@ -37,7 +37,7 @@ const quantityLevelIcon = computed(() => {
                         src="~/assets/img/score.svg"
                         class="h-7 w-7 mr-2"
                         alt="score"
-                    />
+                    >
                     <p class="text">{{ score }}</p>
                 </span>
                 <div class="flex items-center min-h-9">
@@ -47,7 +47,7 @@ const quantityLevelIcon = computed(() => {
                         src="~/assets/img/level.svg"
                         class="h-7 w-7"
                         :alt="level"
-                    />
+                    >
                 </div>
             </div>
             <div class="header__more">
@@ -60,7 +60,7 @@ const quantityLevelIcon = computed(() => {
                         src="~/assets/img/attempts.svg"
                         class="h-9 w-9"
                         alt="timer"
-                    />
+                    >
                 </div>
                 <div class="flex items-center gap-2 flex-wrap">
                     <button type="button" @click="emit('restart')">
@@ -68,7 +68,7 @@ const quantityLevelIcon = computed(() => {
                             src="~/assets/img/reload.svg"
                             class="h-6 w-6 mr-2"
                             alt="timer"
-                        />
+                        >
                     </button>
                     <p class="text text-3xl">
                         {{ timer }}
@@ -77,7 +77,7 @@ const quantityLevelIcon = computed(() => {
                         src="~/assets/img/time.svg"
                         class="h-6 w-6 mr-2"
                         alt="timer"
-                    />
+                    >
                 </div>
             </div>
         </div>
