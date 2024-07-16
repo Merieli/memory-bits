@@ -20,7 +20,7 @@ function turnCard(): void {
                 src="~/assets/img/cardLogo.png"
                 alt="card"
                 class="h-2/3 max-w-[66%]"
-            />
+            >
         </div>
         <div
             class="card front"
@@ -28,7 +28,7 @@ function turnCard(): void {
             @click="turnCard"
             @keydown.enter="turnCard"
         >
-            <img :src="image" alt="card" class="h-2/3 max-w-[66%]" />
+            <img :src="image" alt="card" class="h-2/3 max-w-[66%]" >
         </div>
     </div>
 </template>
