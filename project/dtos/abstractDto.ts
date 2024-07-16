@@ -1,4 +1,4 @@
-import { ZodError, type ZodType, z } from 'zod'
+import { ZodError, type ZodType, type z } from 'zod';
 
 export abstract class AbstractDto<Schema extends ZodType> {
     protected data!: z.infer<Schema>

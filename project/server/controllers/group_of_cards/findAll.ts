@@ -10,11 +10,13 @@ export const findAll = async (event: H3Event<EventHandlerRequest>) => {
         .findMany()
         .then((groups) => {
             return groups.map((group) => {
-                return new GetGroupOfCardsResponseDTO({
+                const validGroup = new GetGroupOfCardsResponseDTO({
                     id: group.id,
                     name: group.name,
                     level_id: group.fk_groups_of_cards__levels__id,
                 })
+
+                return validGroup.getAll();
             })
         })
 

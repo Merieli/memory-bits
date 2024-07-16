@@ -21,6 +21,10 @@ export const findById = async (event: H3Event<EventHandlerRequest>) => {
     })
 
     return {
-        data: card,
+        data: {
+            id: card?.id,
+            image_url: card?.image_url,
+            group_of_cards_id: card?.fk_cards__groups_of_cards__id,
+        }
     }
 }
